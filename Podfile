@@ -6,7 +6,9 @@ target 'Stronger' do
   # use_frameworks!
 
   # Pods for Stronger
+  pod 'SDWebImage', '~>3.8'
   pod 'Firebase/Core'
+  # pod 'FirebaseUI', '~> 1.0'
 
   target 'StrongerTests' do
     inherit! :search_paths
