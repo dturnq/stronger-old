@@ -1,0 +1,6 @@
+framework module Pods_Stronger {
+  umbrella header "Pods-Stronger-umbrella.h"
+
+  export *
+  module * { export * }
+}

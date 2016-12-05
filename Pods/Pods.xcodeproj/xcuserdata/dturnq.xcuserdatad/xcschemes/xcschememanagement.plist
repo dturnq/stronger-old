@@ -4,6 +4,31 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKCoreKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKLoginKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GTMOAuth2.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GTMSessionFetcher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>GoogleToolboxForMac.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +57,52 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>12D0BE9AB489DA96C874BA686EAC1EEE</key>
+		<key>3DD527C8195F759952D06FFB8132D7B9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3522244069364F1C5FA0E20690331591</key>
+		<key>51B7B7502FE6E30C1A72851B8BD14BD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5BD39C844CB7F91A596FA7356DB65F99</key>
+		<key>61AF977C23DFB1506EEC7FDC5AACAB7E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>65686D1A4DAC6D6DD959B898C7E9EF6C</key>
+		<key>64AC8FC3F84278C072E064686DCE7917</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6A4EBA16731A7632833D88737C863B5B</key>
+		<key>6C93DE13A9E39F5C57B693BE90DBB2D0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6EDC37F3FA92533C6AC3562458AA91F1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7D04535608058A2FABC0D16935868FB9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9D0F2E5EA1B46A5D72FFD42B0B39DBBC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B993901E4EC78DAC8D14A04391DA763D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D468777BEC2DE5127A16239373FFD11F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
