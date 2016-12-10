@@ -21,6 +21,8 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
     [FIRApp configure];
+    [FIRDatabase database].persistenceEnabled = YES;
+    
     return YES;
 }
 
