@@ -188,7 +188,9 @@
             NSString *selfKey = [NSString stringWithFormat:@"workouts/%@/%@", userID, self.activeWorkoutKey];
             [writeToDict setObject:workoutDict forKey:selfKey];
             
+            [self.firebaseRef setValuesForKeysWithDictionary:writeToDict];
             
+            /* TURNING OFF TO TEST OFFLINE MODE - MAYBE CAN LEAVE OFF? THIS UPDATES, MEANING IT WON'T OVERRIDE, AND SEEMS TO NOT WORK OFFLINE
             [self.firebaseRef updateChildValues:writeToDict withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
                 if (error) {
                     NSLog(@"the workout didn't post properly... shit: %@", error.debugDescription);
@@ -196,6 +198,7 @@
                     NSLog(@"new workout created");
                 }
             }];
+             */
             
         } withCancelBlock:^(NSError * _Nonnull error) {
             NSLog(@"error pulling follower ata");

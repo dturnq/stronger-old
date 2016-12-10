@@ -34,6 +34,10 @@
 		49C760991DFBEA7B00A71DA2 /* HPCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C760911DFBEA7B00A71DA2 /* HPCollectionVC.m */; };
 		49C7609A1DFBEA7B00A71DA2 /* HPCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C760931DFBEA7B00A71DA2 /* HPCollectionViewCell.m */; };
 		49C7609B1DFBEA7B00A71DA2 /* HPCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C760951DFBEA7B00A71DA2 /* HPCollectionViewFlowLayout.m */; };
+		49C760A41DFBFF1800A71DA2 /* WorkoutHistoryFBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7609D1DFBFF1800A71DA2 /* WorkoutHistoryFBTableViewController.m */; };
+		49C760A51DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7609F1DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m */; };
+		49C760A61DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C760A11DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.m */; };
+		49C760A71DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C760A31DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m */; };
 		9F274F190B6036408C43B18D /* Pods_StrongerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEAA6F4D6CE7F9D6C61BA9B /* Pods_StrongerTests.framework */; };
 		E17BA0A462CDBB62BE083899 /* Pods_Stronger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FE7BA875F05763029F2B03C /* Pods_Stronger.framework */; };
 /* End PBXBuildFile section */
@@ -112,6 +116,14 @@
 		49C760941DFBEA7B00A71DA2 /* HPCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		49C760951DFBEA7B00A71DA2 /* HPCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		49C760961DFBEA7B00A71DA2 /* HPickerDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPickerDefinitions.h; sourceTree = "<group>"; };
+		49C7609C1DFBFF1800A71DA2 /* WorkoutHistoryFBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutHistoryFBTableViewController.h; sourceTree = "<group>"; };
+		49C7609D1DFBFF1800A71DA2 /* WorkoutHistoryFBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutHistoryFBTableViewController.m; sourceTree = "<group>"; };
+		49C7609E1DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutHistoryTableViewCell.h; sourceTree = "<group>"; };
+		49C7609F1DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutHistoryTableViewCell.m; sourceTree = "<group>"; };
+		49C760A01DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutHistoryDetailFBTableViewController.h; sourceTree = "<group>"; };
+		49C760A11DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutHistoryDetailFBTableViewController.m; sourceTree = "<group>"; };
+		49C760A21DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutSummaryTableViewCell.h; sourceTree = "<group>"; };
+		49C760A31DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutSummaryTableViewCell.m; sourceTree = "<group>"; };
 		4EB454450186A2CAC4CA8587 /* Pods-Stronger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stronger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stronger/Pods-Stronger.release.xcconfig"; sourceTree = "<group>"; };
 		99CADD04EC1CB4DF71A5ADB8 /* Pods_StrongerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrongerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B090FAF67F61E08C44B60C03 /* Pods-StrongerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrongerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrongerTests/Pods-StrongerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -200,6 +212,7 @@
 				49B547D11DEBC8F300CFEE47 /* Supporting Files */,
 				49C760661DFBCED700A71DA2 /* Exercises Tab */,
 				49C760731DFBE38500A71DA2 /* Workout */,
+				49C760A81DFBFF2500A71DA2 /* Workout History */,
 			);
 			path = Stronger;
 			sourceTree = "<group>";
@@ -280,6 +293,21 @@
 			);
 			name = HorizontalPickerView;
 			path = "../../Dropbox/MuscleAbuse Firebase";
+			sourceTree = "<group>";
+		};
+		49C760A81DFBFF2500A71DA2 /* Workout History */ = {
+			isa = PBXGroup;
+			children = (
+				49C7609C1DFBFF1800A71DA2 /* WorkoutHistoryFBTableViewController.h */,
+				49C7609D1DFBFF1800A71DA2 /* WorkoutHistoryFBTableViewController.m */,
+				49C7609E1DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.h */,
+				49C7609F1DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m */,
+				49C760A01DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.h */,
+				49C760A11DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.m */,
+				49C760A21DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.h */,
+				49C760A31DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m */,
+			);
+			name = "Workout History";
 			sourceTree = "<group>";
 		};
 		6FA3D4F625AE2C2F9F5589C5 /* Pods */ = {
@@ -565,6 +593,7 @@
 				49C7609A1DFBEA7B00A71DA2 /* HPCollectionViewCell.m in Sources */,
 				49C760851DFBE9E600A71DA2 /* SelectExerciseTableViewController.m in Sources */,
 				49C7607F1DFBE83600A71DA2 /* AddExerciseTableViewCell.m in Sources */,
+				49C760A71DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m in Sources */,
 				49C7608B1DFBEA1200A71DA2 /* SaveWorkoutViewController.m in Sources */,
 				49C760761DFBE46700A71DA2 /* EntryScreenViewController.m in Sources */,
 				49C760821DFBE9C900A71DA2 /* ActiveWorkoutTableViewController.m in Sources */,
@@ -572,10 +601,13 @@
 				49B547D61DEBC8F300CFEE47 /* AppDelegate.m in Sources */,
 				49C760691DFBD47600A71DA2 /* EditExerciseViewController.m in Sources */,
 				49C760651DFBCECE00A71DA2 /* ExercisesTableViewController.m in Sources */,
+				49C760A41DFBFF1800A71DA2 /* WorkoutHistoryFBTableViewController.m in Sources */,
+				49C760A61DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.m in Sources */,
 				49C760981DFBEA7B00A71DA2 /* HorizontalPickerView.m in Sources */,
 				49C7609B1DFBEA7B00A71DA2 /* HPCollectionViewFlowLayout.m in Sources */,
 				49C7606C1DFBDF2500A71DA2 /* Exercise.m in Sources */,
 				49C760991DFBEA7B00A71DA2 /* HPCollectionVC.m in Sources */,
+				49C760A51DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m in Sources */,
 				49B547D31DEBC8F300CFEE47 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -47,8 +47,11 @@
         
         FIRUser *user = [FIRAuth auth].currentUser;
         NSString *username = user.displayName;
+        username = @"OFFLINE MODE";
         NSString *userID = user.uid;
+        userID = @"OFFLINE MODE";
         NSString *userImage = [NSString stringWithFormat:@"%@", user.photoURL];
+        userImage = @"OFFLINE MODE";
         NSNumber *duration = [NSNumber numberWithInteger:([self.timestamp_start integerValue] - [date integerValue])];
         
         NSLog(@"duration: %@", duration);
@@ -56,6 +59,8 @@
         //FIRDatabaseReference *newWorkoutRef = [self.firebaseWorkoutsRef childByAutoId];
         //self.activeWorkoutKey = newWorkoutRef.key;
         [[[self.firebaseRef child:@"pr"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot_pr) {
+            
+            NSLog(@"pulling the PR");
             
             NSDictionary *prAllDict = [[NSDictionary alloc] init];
             
@@ -199,6 +204,8 @@
                 [self.firebaseRef updateChildValues:writeToDict withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
                     if (error) {
                         NSLog(@"the workout didn't post properly... shit: %@", error.debugDescription);
+                    } else {
+                        NSLog(@"Successful workous save! Congrats!");
                     }
                 }];
                 
@@ -206,6 +213,7 @@
                 NSLog(@"error pulling follower ata");
             }];
             
+
             
         }];
         
