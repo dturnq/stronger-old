@@ -22,7 +22,7 @@
     
     self.firebaseRef = [[FIRDatabase database] reference];
     NSString *userID = [FIRAuth auth].currentUser.uid;
-    userID = @"OFFLINE MODE";
+    //userID = @"OFFLINE MODE";
     self.firebaseWorkoutsRef = [[self.firebaseRef child:@"workouts"] child:userID];
     self.FIRDatabaseQuery = [[self.firebaseWorkoutsRef queryOrderedByChild:@"timestamp_start"] queryEndingAtValue:@-1];
     

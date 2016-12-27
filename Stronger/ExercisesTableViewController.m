@@ -23,10 +23,14 @@
     
     self.firebaseRef = [[FIRDatabase database] reference];
     NSString *userID = [FIRAuth auth].currentUser.uid;
-    userID = @"OFFLINE MODE";
+    //userID = @"OFFLINE MODE";
+    NSLog(@"about to set the path");
     self.firebaseExercisesRef = [[self.firebaseRef child:@"exercises"] child:userID];
+    NSLog(@"path set");
     self.FIRDatabaseQuery = [self.firebaseExercisesRef queryOrderedByChild:@"name_lowercase"];
 
+    NSLog(@"initialzing the query");
+    
     self.dataSource = [[FUITableViewDataSource alloc] initWithQuery:self.FIRDatabaseQuery
                                                                view:self.tableView
                                                        populateCell:^UITableViewCell * _Nonnull(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, FIRDataSnapshot * _Nonnull snap) {
@@ -34,6 +38,8 @@
         Exercise *exercise = [[Exercise alloc] initWithName:snap.value[@"name"]
                                            andNameLowercase:snap.value[@"name_lowercase"]
                                                          pr:snap.value[@"pr"]];
+                                                           
+        NSLog(@"The exercise: %@", exercise);
                                                            
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExerciseCell"];
         

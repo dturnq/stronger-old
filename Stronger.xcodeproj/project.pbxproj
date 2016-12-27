@@ -38,6 +38,8 @@
 		49C760A51DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7609F1DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m */; };
 		49C760A61DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C760A11DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.m */; };
 		49C760A71DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C760A31DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m */; };
+		49C760AB1DFC82C200A71DA2 /* ExistingWorkoutsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C760AA1DFC82C200A71DA2 /* ExistingWorkoutsTableViewController.m */; };
+		49C760AE1E105BA300A71DA2 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C760AD1E105BA300A71DA2 /* TabBarViewController.m */; };
 		9F274F190B6036408C43B18D /* Pods_StrongerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEAA6F4D6CE7F9D6C61BA9B /* Pods_StrongerTests.framework */; };
 		E17BA0A462CDBB62BE083899 /* Pods_Stronger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FE7BA875F05763029F2B03C /* Pods_Stronger.framework */; };
 /* End PBXBuildFile section */
@@ -124,6 +126,11 @@
 		49C760A11DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutHistoryDetailFBTableViewController.m; sourceTree = "<group>"; };
 		49C760A21DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutSummaryTableViewCell.h; sourceTree = "<group>"; };
 		49C760A31DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutSummaryTableViewCell.m; sourceTree = "<group>"; };
+		49C760A91DFC82C200A71DA2 /* ExistingWorkoutsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExistingWorkoutsTableViewController.h; sourceTree = "<group>"; };
+		49C760AA1DFC82C200A71DA2 /* ExistingWorkoutsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExistingWorkoutsTableViewController.m; sourceTree = "<group>"; };
+		49C760AC1E105BA300A71DA2 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
+		49C760AD1E105BA300A71DA2 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
+		49C760AF1E10708B00A71DA2 /* Stronger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stronger.entitlements; sourceTree = "<group>"; };
 		4EB454450186A2CAC4CA8587 /* Pods-Stronger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stronger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stronger/Pods-Stronger.release.xcconfig"; sourceTree = "<group>"; };
 		99CADD04EC1CB4DF71A5ADB8 /* Pods_StrongerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrongerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B090FAF67F61E08C44B60C03 /* Pods-StrongerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrongerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrongerTests/Pods-StrongerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -201,6 +208,7 @@
 		49B547D01DEBC8F300CFEE47 /* Stronger */ = {
 			isa = PBXGroup;
 			children = (
+				49C760AF1E10708B00A71DA2 /* Stronger.entitlements */,
 				49B548071DEBCCC800CFEE47 /* GoogleService-Info.plist */,
 				49C7608C1DFBEA2C00A71DA2 /* Constants.h */,
 				49B547D41DEBC8F300CFEE47 /* AppDelegate.h */,
@@ -208,6 +216,8 @@
 				49B547DD1DEBC8F300CFEE47 /* Main.storyboard */,
 				49B547E01DEBC8F400CFEE47 /* Assets.xcassets */,
 				49B547E21DEBC8F400CFEE47 /* LaunchScreen.storyboard */,
+				49C760AC1E105BA300A71DA2 /* TabBarViewController.h */,
+				49C760AD1E105BA300A71DA2 /* TabBarViewController.m */,
 				49B547E51DEBC8F400CFEE47 /* Info.plist */,
 				49B547D11DEBC8F300CFEE47 /* Supporting Files */,
 				49C760661DFBCED700A71DA2 /* Exercises Tab */,
@@ -261,6 +271,8 @@
 			children = (
 				49C760741DFBE46700A71DA2 /* EntryScreenViewController.h */,
 				49C760751DFBE46700A71DA2 /* EntryScreenViewController.m */,
+				49C760A91DFC82C200A71DA2 /* ExistingWorkoutsTableViewController.h */,
+				49C760AA1DFC82C200A71DA2 /* ExistingWorkoutsTableViewController.m */,
 				49C760801DFBE9C900A71DA2 /* ActiveWorkoutTableViewController.h */,
 				49C760811DFBE9C900A71DA2 /* ActiveWorkoutTableViewController.m */,
 				49C760831DFBE9E600A71DA2 /* SelectExerciseTableViewController.h */,
@@ -400,6 +412,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = H7DRE4GTQD;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					49B547E91DEBC8F400CFEE47 = {
 						CreatedOnToolsVersion = 8.0;
@@ -603,9 +620,11 @@
 				49C760651DFBCECE00A71DA2 /* ExercisesTableViewController.m in Sources */,
 				49C760A41DFBFF1800A71DA2 /* WorkoutHistoryFBTableViewController.m in Sources */,
 				49C760A61DFBFF1800A71DA2 /* WorkoutHistoryDetailFBTableViewController.m in Sources */,
+				49C760AB1DFC82C200A71DA2 /* ExistingWorkoutsTableViewController.m in Sources */,
 				49C760981DFBEA7B00A71DA2 /* HorizontalPickerView.m in Sources */,
 				49C7609B1DFBEA7B00A71DA2 /* HPCollectionViewFlowLayout.m in Sources */,
 				49C7606C1DFBDF2500A71DA2 /* Exercise.m in Sources */,
+				49C760AE1E105BA300A71DA2 /* TabBarViewController.m in Sources */,
 				49C760991DFBEA7B00A71DA2 /* HPCollectionVC.m in Sources */,
 				49C760A51DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m in Sources */,
 				49B547D31DEBC8F300CFEE47 /* main.m in Sources */,
@@ -760,6 +779,7 @@
 			baseConfigurationReference = 29DEAE341C3ACC47CC4DD440 /* Pods-Stronger.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Stronger/Stronger.entitlements;
 				DEVELOPMENT_TEAM = H7DRE4GTQD;
 				INFOPLIST_FILE = Stronger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -773,6 +793,7 @@
 			baseConfigurationReference = 4EB454450186A2CAC4CA8587 /* Pods-Stronger.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Stronger/Stronger.entitlements;
 				DEVELOPMENT_TEAM = H7DRE4GTQD;
 				INFOPLIST_FILE = Stronger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

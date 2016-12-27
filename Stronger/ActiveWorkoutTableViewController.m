@@ -35,7 +35,7 @@
     
     self.firebaseRef = [[FIRDatabase database] reference];
     NSString *userID = [FIRAuth auth].currentUser.uid;
-    userID = @"OFFLINE MODE";
+    //userID = @"OFFLINE MODE";
 
     NSLog(@"active workout key: %@", self.activeWorkoutKey);
     
@@ -45,6 +45,8 @@
 
     
     self.ceList = [[NSDictionary alloc] init];
+    
+    NSLog(@"just started the celist");
     
     //self.ceListenerHandle =
     [[[[self.firebaseRef child:@"ce_by_workout"] child:userID] child:self.activeWorkoutKey] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -59,6 +61,7 @@
         NSLog(@"dictionary ce list: %@", self.ceList);
     }];
     
+    NSLog(@"about to set the datasource");
     self.dataSource = [[FUITableViewDataSource alloc] initWithQuery:self.FIRDatabaseQuery view:self.tableView populateCell:^ActiveExerciseTableViewCell * _Nonnull(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, FIRDataSnapshot * _Nonnull snap) {
         
         ActiveExerciseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ActiveExerciseCell"];
@@ -127,9 +130,9 @@
         
     }];
     
-    
+    NSLog(@"about to set the datasource 2");
     [self.tableView setDataSource:self.dataSource];
-    
+    NSLog(@"set datasource");
     //self.dataController.workout = self.activeWorkout;
     
     // Uncomment the following line to preserve selection between presentations.
@@ -250,7 +253,7 @@
          NSLog(@"Creating the new dictionary");
          
          NSString *userID = [FIRAuth auth].currentUser.uid;
-         userID = @"OFFLINE MODE";
+         //userID = @"OFFLINE MODE";
          
          // Timestamp
          NSTimeInterval intervalInSeconds = [[NSDate date] timeIntervalSinceReferenceDate];
@@ -343,7 +346,7 @@
          
          // user id
          NSString *userID = [FIRAuth auth].currentUser.uid;
-         userID = @"OFFLINE MODE";
+         //userID = @"OFFLINE MODE";
          
          // exercise id
          NSString *ceID = selectedCompletedExerciseSnap.key;
@@ -385,7 +388,7 @@
     UIAlertAction *alertActionDelete = [UIAlertAction actionWithTitle:@"Yes, delete it." style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
     
         NSString *userID = [FIRAuth auth].currentUser.uid;
-        userID = @"OFFLINE MODE";
+        //userID = @"OFFLINE MODE";
         
         // find all your followers
         
@@ -396,8 +399,9 @@
             // use the list of followers to define the fanout
             NSMutableDictionary *writeToDict = [[NSMutableDictionary alloc] init];
             
-            NSLog(@"about to check if snapshot is null");
+            NSLog(@"about to check if snapshot is null xx");
             if (snapshot.value != [NSNull null]) {
+                NSLog(@"it isn't null! bass");
                 NSArray *writeToKeys = [snapshot.value allKeys];
                 for (NSString *followerKey in writeToKeys) {
                     // follower feed

@@ -24,7 +24,7 @@
     self.selectedWorkoutDict = self.selectedWorkoutSnap.value;
     self.firebaseRef = [[FIRDatabase database] reference];
     NSString *userID = [FIRAuth auth].currentUser.uid;
-    userID = @"OFFLINE MODE";
+    //userID = @"OFFLINE MODE";
     self.firebaseSelectedWorkoutRef = [[[self.firebaseRef child:@"ce_by_workout"] child:userID] child:self.selectedWorkoutSnap.key];
     //self.FIRDatabaseQuery = [[self.firebaseSelectedWorkoutRef queryOrderedByChild:@"workout"] queryEqualToValue:self.selectedWorkoutSnap.key];
     

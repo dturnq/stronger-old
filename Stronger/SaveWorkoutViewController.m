@@ -20,7 +20,7 @@
     
     self.firebaseRef = [[FIRDatabase database] reference];
     NSString *userID = [FIRAuth auth].currentUser.uid;
-    userID = @"OFFLINE MODE";
+    //userID = @"OFFLINE MODE";
     self.firebaseWorkoutsRef = [[self.firebaseRef child:@"workouts"] child:userID];
 }
 
@@ -47,9 +47,9 @@
         
         FIRUser *user = [FIRAuth auth].currentUser;
         NSString *username = user.displayName;
-        username = @"OFFLINE MODE";
+        //username = @"OFFLINE MODE";
         NSString *userID = user.uid;
-        userID = @"OFFLINE MODE";
+        //userID = @"OFFLINE MODE";
         NSString *userImage = [NSString stringWithFormat:@"%@", user.photoURL];
         userImage = @"OFFLINE MODE";
         NSNumber *duration = [NSNumber numberWithInteger:([self.timestamp_start integerValue] - [date integerValue])];
@@ -190,12 +190,19 @@
                 NSLog(@"result of follower pull: %@", snapshot);
                 NSLog(@"result of follower pull: %@", snapshot.value);
                 
-                NSArray *writeToKeys = [snapshot.value allKeys];
-
-                for (NSString *followerKey in writeToKeys) {
-                    NSString *keyPath = [NSString stringWithFormat:@"feed/%@/%@", followerKey, self.activeWorkoutKey];
-                    [writeToDict setObject:workoutDict forKey:keyPath];
+                NSLog(@"about to check if snapshot is null");
+                if (snapshot.value != [NSNull null]) {
+                    NSArray *writeToKeys = [snapshot.value allKeys];
+                    for (NSString *followerKey in writeToKeys) {
+                        // follower feed
+                        NSString *keyPath = [NSString stringWithFormat:@"feed/%@/%@", followerKey, self.activeWorkoutKey];
+                        [writeToDict setObject:[NSNull null] forKey:keyPath];
+                    }
+                } else {
+                    NSLog(@"no followers");
                 }
+                
+               
                 NSString *selfKey = [NSString stringWithFormat:@"workouts/%@/%@", userID, self.activeWorkoutKey];
                 [writeToDict setObject:workoutDict forKey:selfKey];
                 

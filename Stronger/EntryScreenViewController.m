@@ -36,7 +36,7 @@
     NSLog(@"view did appear");
     
     NSString *userID = [FIRAuth auth].currentUser.uid;
-    userID = @"OFFLINE MODE";
+    //userID = @"OFFLINE MODE";
     
     NSLog(@"user id: %@", userID);
     
@@ -147,9 +147,9 @@
         // Prep values
         FIRUser *user = [FIRAuth auth].currentUser;
         NSString *username = user.displayName;
-        username = @"OFFLINE MODE";
+        //username = @"OFFLINE MODE";
         NSString *userID = user.uid;
-        userID = @"OFFLINE MODE";
+        //userID = @"OFFLINE MODE";
         NSString *userImage = [NSString stringWithFormat:@"%@", user.photoURL];
         userImage = @"OFFLINE MODE";
         
@@ -179,18 +179,32 @@
         NSLog(@"starting ref observation");
         [[[self.firebaseRef child:@"followers"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             
-            NSArray *writeToKeys = [snapshot.value allKeys];
+            NSLog(@"about to write to keys");
+            
             NSMutableDictionary *writeToDict = [[NSMutableDictionary alloc] init];
-            for (NSString *followerKey in writeToKeys) {
-                NSString *keyPath = [NSString stringWithFormat:@"feed/%@/%@", followerKey, self.activeWorkoutKey];
-                [writeToDict setObject:workoutDict forKey:keyPath];
+            
+            NSLog(@"about to check if snapshot is null");
+            if (snapshot.value != [NSNull null]) {
+                NSArray *writeToKeys = [snapshot.value allKeys];
+                for (NSString *followerKey in writeToKeys) {
+                    // follower feed
+                    NSString *keyPath = [NSString stringWithFormat:@"feed/%@/%@", followerKey, self.activeWorkoutKey];
+                    [writeToDict setObject:[NSNull null] forKey:keyPath];
+                }
+            } else {
+                NSLog(@"no followers");
             }
+            
+            NSLog(@"selfkey");
             NSString *selfKey = [NSString stringWithFormat:@"workouts/%@/%@", userID, self.activeWorkoutKey];
+            
+            NSLog(@"setting self key");
             [writeToDict setObject:workoutDict forKey:selfKey];
             
-            [self.firebaseRef setValuesForKeysWithDictionary:writeToDict];
+            NSLog(@"about to save");
+            //[self.firebaseRef setValuesForKeysWithDictionary:writeToDict];
             
-            /* TURNING OFF TO TEST OFFLINE MODE - MAYBE CAN LEAVE OFF? THIS UPDATES, MEANING IT WON'T OVERRIDE, AND SEEMS TO NOT WORK OFFLINE
+            
             [self.firebaseRef updateChildValues:writeToDict withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
                 if (error) {
                     NSLog(@"the workout didn't post properly... shit: %@", error.debugDescription);
@@ -198,7 +212,7 @@
                     NSLog(@"new workout created");
                 }
             }];
-             */
+            
             
         } withCancelBlock:^(NSError * _Nonnull error) {
             NSLog(@"error pulling follower ata");

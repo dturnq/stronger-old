@@ -27,7 +27,7 @@
     
     self.firebaseRef = [[FIRDatabase database] reference];
     NSString *userID = [FIRAuth auth].currentUser.uid;
-    userID = @"OFFLINE MODE";
+    //userID = @"OFFLINE MODE";
     NSLog(@"XXXUIDXXX: %@", userID);
     self.firebaseCompletedExercisesRef = [[self.firebaseRef child:@"ce_by_workout"] child:userID];
     
@@ -663,7 +663,7 @@
     UIAlertAction *alertActionDelete = [UIAlertAction actionWithTitle:@"Yes, delete it." style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
         NSString *userID = [FIRAuth auth].currentUser.uid;
-        userID = @"OFFLINE MODE";
+        //userID = @"OFFLINE MODE";
         
         NSLog(@"self.completedExerciseSnap: %@", self.completedExerciseSnap);
         
