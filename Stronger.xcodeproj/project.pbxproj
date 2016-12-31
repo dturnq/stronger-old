@@ -12,6 +12,11 @@
 		490E727A1DED625800117236 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 490E72761DED625800117236 /* FBSDKCoreKit.framework */; };
 		490E727B1DED625800117236 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 490E72771DED625800117236 /* FBSDKLoginKit.framework */; };
 		490E727C1DED625800117236 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 490E72781DED625800117236 /* FBSDKShareKit.framework */; };
+		4925003C1E184C0E0092F3D4 /* FindFacebookFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500351E184C0E0092F3D4 /* FindFacebookFriendsTableViewController.m */; };
+		4925003D1E184C0E0092F3D4 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500371E184C0E0092F3D4 /* FriendTableViewCell.m */; };
+		4925003E1E184C0E0092F3D4 /* ViewFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500391E184C0E0092F3D4 /* ViewFriendsTableViewController.m */; };
+		4925003F1E184C0E0092F3D4 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4925003B1E184C0E0092F3D4 /* SettingsTableViewController.m */; };
+		492500451E185F3C0092F3D4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500441E185F3C0092F3D4 /* Constants.m */; };
 		49B547D31DEBC8F300CFEE47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B547D21DEBC8F300CFEE47 /* main.m */; };
 		49B547D61DEBC8F300CFEE47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B547D51DEBC8F300CFEE47 /* AppDelegate.m */; };
 		49B547DF1DEBC8F300CFEE47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49B547DD1DEBC8F300CFEE47 /* Main.storyboard */; };
@@ -72,6 +77,15 @@
 		490E72761DED625800117236 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		490E72771DED625800117236 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		490E72781DED625800117236 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		492500341E184C0E0092F3D4 /* FindFacebookFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindFacebookFriendsTableViewController.h; sourceTree = "<group>"; };
+		492500351E184C0E0092F3D4 /* FindFacebookFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFacebookFriendsTableViewController.m; sourceTree = "<group>"; };
+		492500361E184C0E0092F3D4 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
+		492500371E184C0E0092F3D4 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
+		492500381E184C0E0092F3D4 /* ViewFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewFriendsTableViewController.h; sourceTree = "<group>"; };
+		492500391E184C0E0092F3D4 /* ViewFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewFriendsTableViewController.m; sourceTree = "<group>"; };
+		4925003A1E184C0E0092F3D4 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
+		4925003B1E184C0E0092F3D4 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		492500441E185F3C0092F3D4 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		49B547CE1DEBC8F300CFEE47 /* Stronger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stronger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49B547D21DEBC8F300CFEE47 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		49B547D41DEBC8F300CFEE47 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -182,6 +196,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		492500401E184C160092F3D4 /* Settings View */ = {
+			isa = PBXGroup;
+			children = (
+				492500341E184C0E0092F3D4 /* FindFacebookFriendsTableViewController.h */,
+				492500351E184C0E0092F3D4 /* FindFacebookFriendsTableViewController.m */,
+				492500361E184C0E0092F3D4 /* FriendTableViewCell.h */,
+				492500371E184C0E0092F3D4 /* FriendTableViewCell.m */,
+				492500381E184C0E0092F3D4 /* ViewFriendsTableViewController.h */,
+				492500391E184C0E0092F3D4 /* ViewFriendsTableViewController.m */,
+				4925003A1E184C0E0092F3D4 /* SettingsTableViewController.h */,
+				4925003B1E184C0E0092F3D4 /* SettingsTableViewController.m */,
+			);
+			name = "Settings View";
+			sourceTree = "<group>";
+		};
 		49B547C51DEBC8F300CFEE47 = {
 			isa = PBXGroup;
 			children = (
@@ -208,17 +237,15 @@
 		49B547D01DEBC8F300CFEE47 /* Stronger */ = {
 			isa = PBXGroup;
 			children = (
-				49C760AF1E10708B00A71DA2 /* Stronger.entitlements */,
-				49B548071DEBCCC800CFEE47 /* GoogleService-Info.plist */,
 				49C7608C1DFBEA2C00A71DA2 /* Constants.h */,
+				492500441E185F3C0092F3D4 /* Constants.m */,
 				49B547D41DEBC8F300CFEE47 /* AppDelegate.h */,
 				49B547D51DEBC8F300CFEE47 /* AppDelegate.m */,
 				49B547DD1DEBC8F300CFEE47 /* Main.storyboard */,
-				49B547E01DEBC8F400CFEE47 /* Assets.xcassets */,
 				49B547E21DEBC8F400CFEE47 /* LaunchScreen.storyboard */,
 				49C760AC1E105BA300A71DA2 /* TabBarViewController.h */,
 				49C760AD1E105BA300A71DA2 /* TabBarViewController.m */,
-				49B547E51DEBC8F400CFEE47 /* Info.plist */,
+				492500401E184C160092F3D4 /* Settings View */,
 				49B547D11DEBC8F300CFEE47 /* Supporting Files */,
 				49C760661DFBCED700A71DA2 /* Exercises Tab */,
 				49C760731DFBE38500A71DA2 /* Workout */,
@@ -230,6 +257,10 @@
 		49B547D11DEBC8F300CFEE47 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				49C760AF1E10708B00A71DA2 /* Stronger.entitlements */,
+				49B548071DEBCCC800CFEE47 /* GoogleService-Info.plist */,
+				49B547E01DEBC8F400CFEE47 /* Assets.xcassets */,
+				49B547E51DEBC8F400CFEE47 /* Info.plist */,
 				49B547D21DEBC8F300CFEE47 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -606,12 +637,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4925003C1E184C0E0092F3D4 /* FindFacebookFriendsTableViewController.m in Sources */,
 				49C7607C1DFBE81900A71DA2 /* ActiveExerciseTableViewCell.m in Sources */,
 				49C7609A1DFBEA7B00A71DA2 /* HPCollectionViewCell.m in Sources */,
 				49C760851DFBE9E600A71DA2 /* SelectExerciseTableViewController.m in Sources */,
 				49C7607F1DFBE83600A71DA2 /* AddExerciseTableViewCell.m in Sources */,
 				49C760A71DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m in Sources */,
+				4925003E1E184C0E0092F3D4 /* ViewFriendsTableViewController.m in Sources */,
 				49C7608B1DFBEA1200A71DA2 /* SaveWorkoutViewController.m in Sources */,
+				4925003F1E184C0E0092F3D4 /* SettingsTableViewController.m in Sources */,
 				49C760761DFBE46700A71DA2 /* EntryScreenViewController.m in Sources */,
 				49C760821DFBE9C900A71DA2 /* ActiveWorkoutTableViewController.m in Sources */,
 				49C760881DFBEA0400A71DA2 /* AddSetViewController.m in Sources */,
@@ -624,10 +658,12 @@
 				49C760981DFBEA7B00A71DA2 /* HorizontalPickerView.m in Sources */,
 				49C7609B1DFBEA7B00A71DA2 /* HPCollectionViewFlowLayout.m in Sources */,
 				49C7606C1DFBDF2500A71DA2 /* Exercise.m in Sources */,
+				4925003D1E184C0E0092F3D4 /* FriendTableViewCell.m in Sources */,
 				49C760AE1E105BA300A71DA2 /* TabBarViewController.m in Sources */,
 				49C760991DFBEA7B00A71DA2 /* HPCollectionVC.m in Sources */,
 				49C760A51DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m in Sources */,
 				49B547D31DEBC8F300CFEE47 /* main.m in Sources */,
+				492500451E185F3C0092F3D4 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,6 +818,7 @@
 				CODE_SIGN_ENTITLEMENTS = Stronger/Stronger.entitlements;
 				DEVELOPMENT_TEAM = H7DRE4GTQD;
 				INFOPLIST_FILE = Stronger/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dturnq.Stronger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -796,6 +833,7 @@
 				CODE_SIGN_ENTITLEMENTS = Stronger/Stronger.entitlements;
 				DEVELOPMENT_TEAM = H7DRE4GTQD;
 				INFOPLIST_FILE = Stronger/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dturnq.Stronger;
 				PRODUCT_NAME = "$(TARGET_NAME)";

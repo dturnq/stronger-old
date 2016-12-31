@@ -8,7 +8,7 @@
 
 #import "SaveWorkoutViewController.h"
 
-@interface SaveWorkoutViewController ()
+@interface SaveWorkoutViewController () <UITextFieldDelegate>
 
 @end
 

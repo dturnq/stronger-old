@@ -7,6 +7,7 @@
 //
 
 #import "TabBarViewController.h"
+#import "Constants.h"
 @import FirebaseGoogleAuthUI;
 @import FirebaseFacebookAuthUI;
 @import FirebaseTwitterAuthUI;
@@ -35,9 +36,12 @@
     [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
         if (user) {
             // user authenticated
-            NSLog(@"User is signed in with uid: %@", user.uid);
+            NSLog(@"User is signed in with uid: %@", userGlobal.uid);
+            userGlobal = user;
+            NSLog(@"User is signed in with uid: %@", userGlobal.uid);
         } else {
             NSLog(@"No user is signed in.");
+            userGlobal = nil;
             UINavigationController *authViewController = [self.authUI authViewController];
             [self presentViewController:authViewController animated:YES completion:^{
                 NSLog(@"presented bitches");
