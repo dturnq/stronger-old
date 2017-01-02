@@ -16,11 +16,19 @@
 
 @property (strong, nonatomic) FIRDatabaseReference *firebaseRef;
 @property (strong, nonatomic) FIRDatabaseReference *firebaseWorkoutsRef;
+
 @property (strong, nonatomic) FUITableViewDataSource *dataSource;
+
 @property (strong, nonatomic) FIRDatabaseQuery *FIRDatabaseQuery;
 
 @property (strong, nonatomic) FIRDataSnapshot *selectedWorkoutSnap;
 
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segControlForSource;
+
+@property (strong, nonatomic) NSString *sourceString;
+
+- (IBAction)segControlTapped:(id)sender;
+- (void)setTableSourceUsingString:(NSString *)tableSourceString;
 
 
 @end

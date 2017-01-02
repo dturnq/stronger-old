@@ -986,8 +986,22 @@
                             <outlet property="delegate" destination="rS9-ys-6cx" id="dZU-eI-1TH"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="History" id="edu-ui-IBd"/>
+                    <navigationItem key="navigationItem" id="edu-ui-IBd">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="7Ux-bP-rnz">
+                            <rect key="frame" x="109" y="7" width="157" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Myself"/>
+                                <segment title="Following"/>
+                            </segments>
+                            <connections>
+                                <action selector="segControlTapped:" destination="rS9-ys-6cx" eventType="valueChanged" id="D3a-Ua-mfN"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <connections>
+                        <outlet property="segControlForSource" destination="7Ux-bP-rnz" id="gpa-sB-Dxe"/>
                         <segue destination="lMo-a4-FZj" kind="show" identifier="SegueToViewWorkoutDetail" id="7Xp-Zl-12U">
                             <nil key="action"/>
                         </segue>

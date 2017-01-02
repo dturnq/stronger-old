@@ -22,58 +22,10 @@
     [super viewDidLoad];
     
     self.firebaseRef = [[FIRDatabase database] reference];
-    NSString *userID = [FIRAuth auth].currentUser.uid;
-    //userID = @"OFFLINE MODE";
-    self.firebaseWorkoutsRef = [[self.firebaseRef child:@"workouts"] child:userID];
-    self.FIRDatabaseQuery = [[self.firebaseWorkoutsRef queryOrderedByChild:@"timestamp_start"] queryEndingAtValue:@-1];
-    
-    self.dataSource = [[FUITableViewDataSource alloc] initWithQuery:self.FIRDatabaseQuery
-                                                               view:self.tableView
-                                                       populateCell:^WorkoutHistoryTableViewCell * _Nonnull(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, FIRDataSnapshot * _Nonnull snap) {
-        
-        WorkoutHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FBWorkoutHistoryCell"];
-        
-        NSLog(@"Viewdidload - snap.key: %@", snap.key);
-        cell.userDisplayNameLabel.text = snap.value[@"user_name"];
-        cell.workoutNameLabel.text = snap.value[@"name"];
-        
-        
-        ///// Profile Pic
-        // Download the user's facebook profile picture
-        
-        NSURL *pictureURL = [NSURL URLWithString:snap.value[@"user_profileimage"]];
-        NSLog(@"Picture URL: %@", pictureURL);
-        
-        [cell.userProfileImage sd_setImageWithURL:pictureURL];
-        
-        NSLog(@"about to return workout history cell");
-        return cell;
-        
-    }];
-    
-    // OLD: self.dataSource = [[FUITableViewDataSource alloc] initWithQuery:self.FIRDatabaseQuery prototypeReuseIdentifier:@"FBWorkoutHistoryCell" view:self.tableView];
-    
-    
-    /*
-    [self.dataSource populateCellWithBlock:^(WorkoutHistoryTableViewCell *cell, FIRDataSnapshot *snap) {
-        //NSLog(@"snap: %@", snap);
-        //NSLog(@"snap.value: %@", snap.value);
-        NSLog(@"Viewdidload - snap.key: %@", snap.key);
-        cell.userDisplayNameLabel.text = snap.value[@"user_name"];
-        cell.workoutNameLabel.text = snap.value[@"name"];
-        
-        
-        ///// Profile Pic
-        // Download the user's facebook profile picture
-        
-        NSURL *pictureURL = [NSURL URLWithString:snap.value[@"user_profileimage"]];
-        NSLog(@"Picture URL: %@", pictureURL);
 
-        [cell.userProfileImage sd_setImageWithURL:pictureURL];
-    }];
-     */
+    self.sourceString = @"workouts";
     
-    [self.tableView setDataSource:self.dataSource];
+    [self setTableSourceUsingString:self.sourceString];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -180,6 +132,64 @@
     }
     
 }
+
+
+- (IBAction)segControlTapped:(id)sender {
+    
+    NSLog(@"Tapped the segment control");
+    
+    if (self.segControlForSource.selectedSegmentIndex == 0) {
+        NSLog(@"control a");
+        self.sourceString = @"workouts";
+        
+        [self setTableSourceUsingString:self.sourceString];
+        
+    } else {
+        NSLog(@"control b");
+        
+        self.sourceString = @"feed";
+        
+        [self setTableSourceUsingString:self.sourceString];
+    }
+
+}
+
+-(void)setTableSourceUsingString:(NSString *)tableSourceString {
+    
+    self.dataSource = (id)[NSNull null];
+    
+    self.firebaseWorkoutsRef = [[self.firebaseRef child:tableSourceString] child:[FIRAuth auth].currentUser.uid];
+    self.FIRDatabaseQuery = [[self.firebaseWorkoutsRef queryOrderedByChild:@"timestamp_start"] queryEndingAtValue:@-1];
+    
+    self.dataSource = [[FUITableViewDataSource alloc] initWithQuery:self.FIRDatabaseQuery
+                                                                   view:self.tableView
+                                                           populateCell:^WorkoutHistoryTableViewCell * _Nonnull(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, FIRDataSnapshot * _Nonnull snap) {
+                                                               
+                                                               WorkoutHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FBWorkoutHistoryCell"];
+                                                               
+                                                               NSLog(@"Viewdidload - snap.key: %@", snap.key);
+                                                               cell.userDisplayNameLabel.text = snap.value[@"user_name"];
+                                                               cell.workoutNameLabel.text = snap.value[@"name"];
+                                                               
+                                                               
+                                                               ///// Profile Pic
+                                                               // Download the user's facebook profile picture
+                                                               
+                                                               NSURL *pictureURL = [NSURL URLWithString:snap.value[@"user_profileimage"]];
+                                                               NSLog(@"Picture URL: %@", pictureURL);
+                                                               
+                                                               [cell.userProfileImage sd_setImageWithURL:pictureURL];
+                                                               
+                                                               NSLog(@"about to return workout history cell");
+                                                               return cell;
+                                                               
+                                                           }];
+    [self.tableView setDataSource:self.dataSource];
+    [self.tableView reloadData];
+    
+
+}
+
 
 
 @end
