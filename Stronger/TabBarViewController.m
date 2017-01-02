@@ -36,12 +36,13 @@
     [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
         if (user) {
             // user authenticated
-            NSLog(@"User is signed in with uid: %@", userGlobal.uid);
-            userGlobal = user;
-            NSLog(@"User is signed in with uid: %@", userGlobal.uid);
+            NSLog(@"TabBarViewController.m User is signed in with uid: %@", [FIRAuth auth].currentUser.uid);
+            
+            NSLog(@"TabBarViewController.m User is signed in with uid: %@", [FIRAuth auth].currentUser.uid);
+            NSLog(@"TabBarViewController.m user display name: %@", user.displayName);
+
         } else {
             NSLog(@"No user is signed in.");
-            userGlobal = nil;
             UINavigationController *authViewController = [self.authUI authViewController];
             [self presentViewController:authViewController animated:YES completion:^{
                 NSLog(@"presented bitches");
@@ -54,10 +55,81 @@
 - (void)authUI:(FUIAuth *)authUI didSignInWithUser:(nullable FIRUser *)user error:(nullable NSError *)error {
     // Implement this method to handle signed in user or error if any.
     
+    
+    // SAVE THE USER
+    // Timestamp
+     NSTimeInterval intervalInSeconds = [[NSDate date] timeIntervalSinceReferenceDate];
+     NSNumber *date = [NSNumber numberWithDouble:-intervalInSeconds];
+     
+     NSLog(@"about to cerate the dictionary from user: %@", user);
+    
+     NSString *provider_last = @"";
+     NSString *facebookUID = @"";
+     NSString *uid = @"";
+     NSString *name = @"";
+     NSString *name_lowercase = @"";
+     NSString *photoURL = @"";
+     NSString *fbPhotoURL = @"";
+     NSString *email = @"";
+
+     if (user != nil) {
+         
+         provider_last = [user.providerData[0] providerID];
+         uid = user.uid;  // firebase-specific UID
+         name = user.displayName;
+         name_lowercase = [name lowercaseString];
+         email = user.email;
+         photoURL = [NSString stringWithFormat:@"%@", user.photoURL];
+         
+         for (id<FIRUserInfo> profile in user.providerData) {
+             
+             if ([profile.providerID isEqual: @"facebook.com"]) {
+                 NSString *fid = profile.uid;
+                 facebookUID = [NSString stringWithFormat:@"%@%@", @"facebook:", fid];
+                 fbPhotoURL = [NSString stringWithFormat:@"%@", profile.photoURL];
+             }
+         }
+
+     } else {
+         // No user is signed in.
+     }
+     
+    
+    // save the fbook id mapping
+    if ([facebookUID isEqual: @""]) {
+        // No fbook id
+        NSLog(@"no fbook id");
+    } else {
+        NSLog(@"should save the fb users...");
+        [[[self.firebaseRef child:@"fb_users"] child:facebookUID] setValue:@{@"firebase_uid": uid}];
+    }
+    
+    
+     // Create the user
+     NSDictionary *userDict = @{
+     @"provider_last": provider_last,
+     @"facebookUID": facebookUID,
+     @"uid": uid,
+     @"name": name,
+     @"name_lowercase": name,
+     @"photoURL": photoURL,
+     @"fbPhotoURL": fbPhotoURL,
+     @"email": email,
+     @"lastLoginTimeStamp": date
+     };
+    
+    NSLog(@"User data to save: %@", userDict);
+    
+     // save it
+     NSLog(@"Attempting to save");
+     [[[self.firebaseRef child:@"users"] child:user.uid] setValue:userDict];
+     NSLog(@"Saved");
+    
     NSLog(@"Ran the didsigninuser authui method yeeeeeeHA! authui: %@, user: %@, error: %@", authUI, user, error);
     
 }
-    
+
+
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary *)options {
     
     NSString *sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey];

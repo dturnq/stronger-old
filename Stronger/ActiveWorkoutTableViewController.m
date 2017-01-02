@@ -6,10 +6,12 @@
 //  Copyright © 2015 David Turnquist. All rights reserved.
 //
 
+#import "Constants.h"
 #import "ActiveWorkoutTableViewController.h"
 #import "SelectExerciseTableViewController.h"
 #import "AddSetViewController.h"
 #import "SaveWorkoutViewController.h"
+#import "Constants.h"
 
 @interface ActiveWorkoutTableViewController ()
 

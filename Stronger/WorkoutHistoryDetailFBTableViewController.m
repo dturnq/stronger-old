@@ -6,6 +6,7 @@
 //  Copyright © 2016 David Turnquist. All rights reserved.
 //
 
+#import "Constants.h"
 #import "WorkoutHistoryDetailFBTableViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ActiveExerciseTableViewCell.h"

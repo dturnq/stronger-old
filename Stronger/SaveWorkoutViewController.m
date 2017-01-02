@@ -6,6 +6,7 @@
 //  Copyright © 2016 David Turnquist. All rights reserved.
 //
 
+#import "Constants.h"
 #import "SaveWorkoutViewController.h"
 
 @interface SaveWorkoutViewController () <UITextFieldDelegate>
@@ -47,11 +48,11 @@
         
         FIRUser *user = [FIRAuth auth].currentUser;
         NSString *username = user.displayName;
+        NSLog(@"SaveWorkoutViewController.m username: %@", username);
         //username = @"OFFLINE MODE";
         NSString *userID = user.uid;
         //userID = @"OFFLINE MODE";
         NSString *userImage = [NSString stringWithFormat:@"%@", user.photoURL];
-        userImage = @"OFFLINE MODE";
         NSNumber *duration = [NSNumber numberWithInteger:([self.timestamp_start integerValue] - [date integerValue])];
         
         NSLog(@"duration: %@", duration);

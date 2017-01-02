@@ -11,6 +11,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKLoginKit/FBSDKLoginManager.h>
+#import "FindFacebookFriendsModel.h"
 @import Firebase;
 @import FirebaseDatabase;
 @import FirebaseAuth;
@@ -19,11 +20,12 @@
 
 @interface FindFacebookFriendsTableViewController : UITableViewController
 
+@property (strong, nonatomic) FindFacebookFriendsModel *findFacebookFriendsModel;
 
 @property (nonatomic) int numberOfRows;
 @property (weak, nonatomic) NSString *status;
 
-@property (strong, nonatomic) NSArray *resultsArray;
+@property (strong, nonatomic) NSArray *fbFriendListArray;
 //@property (weak, nonatomic) NSArray *resultsKeysList;
 
 -(void)loginToFacebook;

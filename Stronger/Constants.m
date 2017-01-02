@@ -9,4 +9,4 @@
 #import <Foundation/Foundation.h>
 #import "Constants.h"
 
-FIRUser *userGlobal = nil;
+//FIRUser *[FIRAuth auth].currentUser = nil;

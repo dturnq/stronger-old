@@ -6,6 +6,7 @@
 //  Copyright © 2015 David Turnquist. All rights reserved.
 //
 
+#import "Constants.h"
 #import "SelectExerciseTableViewController.h"
 
 @interface SelectExerciseTableViewController ()
