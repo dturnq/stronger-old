@@ -17,6 +17,7 @@
 		4925003E1E184C0E0092F3D4 /* ViewFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500391E184C0E0092F3D4 /* ViewFriendsTableViewController.m */; };
 		4925003F1E184C0E0092F3D4 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4925003B1E184C0E0092F3D4 /* SettingsTableViewController.m */; };
 		492500451E185F3C0092F3D4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500441E185F3C0092F3D4 /* Constants.m */; };
+		4925004C1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4925004B1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.m */; };
 		49B547D31DEBC8F300CFEE47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B547D21DEBC8F300CFEE47 /* main.m */; };
 		49B547D61DEBC8F300CFEE47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B547D51DEBC8F300CFEE47 /* AppDelegate.m */; };
 		49B547DF1DEBC8F300CFEE47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49B547DD1DEBC8F300CFEE47 /* Main.storyboard */; };
@@ -86,6 +87,8 @@
 		4925003A1E184C0E0092F3D4 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		4925003B1E184C0E0092F3D4 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		492500441E185F3C0092F3D4 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		4925004A1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveExercise2RowTableViewCell.h; sourceTree = "<group>"; };
+		4925004B1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveExercise2RowTableViewCell.m; sourceTree = "<group>"; };
 		49B547CE1DEBC8F300CFEE47 /* Stronger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stronger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49B547D21DEBC8F300CFEE47 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		49B547D41DEBC8F300CFEE47 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -318,6 +321,8 @@
 				49C760841DFBE9E600A71DA2 /* SelectExerciseTableViewController.m */,
 				49C7607A1DFBE81900A71DA2 /* ActiveExerciseTableViewCell.h */,
 				49C7607B1DFBE81900A71DA2 /* ActiveExerciseTableViewCell.m */,
+				4925004A1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.h */,
+				4925004B1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.m */,
 				49C7607D1DFBE83600A71DA2 /* AddExerciseTableViewCell.h */,
 				49C7607E1DFBE83600A71DA2 /* AddExerciseTableViewCell.m */,
 				49C760861DFBEA0400A71DA2 /* AddSetViewController.h */,
@@ -652,6 +657,7 @@
 				49C7607F1DFBE83600A71DA2 /* AddExerciseTableViewCell.m in Sources */,
 				49C760A71DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m in Sources */,
 				4925003E1E184C0E0092F3D4 /* ViewFriendsTableViewController.m in Sources */,
+				4925004C1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.m in Sources */,
 				49C7608B1DFBEA1200A71DA2 /* SaveWorkoutViewController.m in Sources */,
 				4925003F1E184C0E0092F3D4 /* SettingsTableViewController.m in Sources */,
 				49C760761DFBE46700A71DA2 /* EntryScreenViewController.m in Sources */,

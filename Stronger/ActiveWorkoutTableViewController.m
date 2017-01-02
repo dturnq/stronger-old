@@ -64,11 +64,18 @@
     }];
     
     NSLog(@"about to set the datasource");
-    self.dataSource = [[FUITableViewDataSource alloc] initWithQuery:self.FIRDatabaseQuery view:self.tableView populateCell:^ActiveExerciseTableViewCell * _Nonnull(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, FIRDataSnapshot * _Nonnull snap) {
+    self.dataSource = [[FUITableViewDataSource alloc] initWithQuery:self.FIRDatabaseQuery view:self.tableView populateCell:^ActiveExercise2RowTableViewCell * _Nonnull(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, FIRDataSnapshot * _Nonnull snap) {
         
-        ActiveExerciseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ActiveExerciseCell"];
+        // IDENTIFY HOW MANY SETS THERE ARE
+        NSUInteger countOfList = [(NSDictionary *)snap.value[@"sets"] count];
+        NSDictionary *arrayOfSets = snap.value[@"sets"];
         
-        NSLog(@"Viewdidload cell creation - snap.key: %@", snap.key);
+        NSLog(@"The array of xsets: %@", arrayOfSets);
+        
+        NSLog(@"Count of sets: %lu", (unsigned long)countOfList);
+        
+        ActiveExercise2RowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ActiveExercise2RowCell"];
+        
         NSLog(@"Viewdidload cell creation - snap.workout: %@", snap.value[@"workout"]);
         
         
@@ -78,12 +85,7 @@
         
         //cell.exerciseName.text = @"Placeholder text"; //snap.value[@"name"];
         
-        NSUInteger countOfList = [(NSDictionary *)snap.value[@"sets"] count];
-        NSDictionary *arrayOfSets = snap.value[@"sets"];
-        
-        NSLog(@"The array of sets: %@", arrayOfSets);
-        
-        NSLog(@"Count of sets: %lu", (unsigned long)countOfList);
+
         
         
         if (countOfList > 0) {
@@ -126,6 +128,86 @@
         } else {
             cell.set4.text = @"-";
         }
+        
+        if (countOfList > 4) {
+            NSLog(@"There are 5+ sets");
+            NSDictionary *set = [arrayOfSets objectForKey:@"set4"];
+            NSString *reps =  [[set objectForKey:@"reps"] stringValue];
+            NSString *weight = [[set objectForKey:@"weight"] stringValue];
+            cell.set5.text = [[reps stringByAppendingString:@" / "] stringByAppendingString:weight];
+        } else {
+            cell.set5.text = @"-";
+        }
+        
+        if (countOfList > 5) {
+            NSLog(@"There are 6+ sets");
+            NSDictionary *set = [arrayOfSets objectForKey:@"set5"];
+            NSString *reps =  [[set objectForKey:@"reps"] stringValue];
+            NSString *weight = [[set objectForKey:@"weight"] stringValue];
+            cell.set6.text = [[reps stringByAppendingString:@" / "] stringByAppendingString:weight];
+        } else {
+            cell.set6.text = @"-";
+        }
+        
+        if (countOfList > 6) {
+            NSLog(@"There are 7+ sets");
+            NSDictionary *set = [arrayOfSets objectForKey:@"set6"];
+            NSString *reps =  [[set objectForKey:@"reps"] stringValue];
+            NSString *weight = [[set objectForKey:@"weight"] stringValue];
+            cell.set7.text = [[reps stringByAppendingString:@" / "] stringByAppendingString:weight];
+        } else {
+            cell.set7.text = @"-";
+        }
+        
+        if (countOfList > 7) {
+            NSLog(@"There are 8+ sets");
+            NSDictionary *set = [arrayOfSets objectForKey:@"set7"];
+            NSString *reps =  [[set objectForKey:@"reps"] stringValue];
+            NSString *weight = [[set objectForKey:@"weight"] stringValue];
+            cell.set8.text = [[reps stringByAppendingString:@" / "] stringByAppendingString:weight];
+        } else {
+            cell.set8.text = @"-";
+        }
+        
+        if (countOfList > 8) {
+            NSLog(@"There are 5+ sets");
+            NSDictionary *set = [arrayOfSets objectForKey:@"set8"];
+            NSString *reps =  [[set objectForKey:@"reps"] stringValue];
+            NSString *weight = [[set objectForKey:@"weight"] stringValue];
+            cell.set9.text = [[reps stringByAppendingString:@" / "] stringByAppendingString:weight];
+        } else {
+            cell.set9.text = @"-";
+        }
+        
+        if (countOfList > 9) {
+            NSLog(@"There are 6+ sets");
+            NSDictionary *set = [arrayOfSets objectForKey:@"set9"];
+            NSString *reps =  [[set objectForKey:@"reps"] stringValue];
+            NSString *weight = [[set objectForKey:@"weight"] stringValue];
+            cell.set10.text = [[reps stringByAppendingString:@" / "] stringByAppendingString:weight];
+        } else {
+            cell.set10.text = @"-";
+        }
+        
+        if (countOfList > 10) {
+            NSLog(@"There are 7+ sets");
+            NSDictionary *set = [arrayOfSets objectForKey:@"set10"];
+            NSString *reps =  [[set objectForKey:@"reps"] stringValue];
+            NSString *weight = [[set objectForKey:@"weight"] stringValue];
+            cell.set11.text = [[reps stringByAppendingString:@" / "] stringByAppendingString:weight];
+        } else {
+            cell.set11.text = @"-";
+        }
+        
+        if (countOfList > 11) {
+            NSLog(@"There are 8+ sets");
+            NSDictionary *set = [arrayOfSets objectForKey:@"set11"];
+            NSString *reps =  [[set objectForKey:@"reps"] stringValue];
+            NSString *weight = [[set objectForKey:@"weight"] stringValue];
+            cell.set12.text = [[reps stringByAppendingString:@" / "] stringByAppendingString:weight];
+        } else {
+            cell.set12.text = @"-";
+        }
 
         
         return cell;
@@ -151,6 +233,26 @@
 
 #pragma mark - Table view data source
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.dataSource objectAtIndex:indexPath.row];
+    
+    FIRDataSnapshot *snap = [self.dataSource objectAtIndex:indexPath.row];
+    
+    // IDENTIFY HOW MANY SETS THERE ARE
+    NSUInteger countOfList = [(NSDictionary *)snap.value[@"sets"] count];
+    
+    int rowHeight = 75;
+    
+    if (countOfList > 3) {
+        rowHeight = 110;
+    }
+    
+    if (countOfList > 7) {
+        rowHeight = 145;
+    }
+    
+    return rowHeight;
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -12,7 +12,8 @@
 @import FirebaseDatabaseUI;
 
 
-#import "ActiveExerciseTableViewCell.h"
+//#import "ActiveExerciseTableViewCell.h"
+#import "ActiveExercise2RowTableViewCell.h"
 #import "AddExerciseTableViewCell.h"
 
 @class ActiveWorkoutDataController;

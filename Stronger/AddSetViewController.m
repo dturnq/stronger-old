@@ -27,8 +27,7 @@
     
     self.firebaseRef = [[FIRDatabase database] reference];
     NSString *userID = [FIRAuth auth].currentUser.uid;
-    //userID = @"OFFLINE MODE";
-    NSLog(@"XXXUIDXXX: %@", userID);
+
     self.firebaseCompletedExercisesRef = [[self.firebaseRef child:@"ce_by_workout"] child:userID];
     
     NSString *path = [NSString stringWithFormat:@"%@/%@", self.completedExerciseSnap.value[@"exerciseID"], userID];

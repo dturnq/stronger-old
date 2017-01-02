@@ -17,7 +17,7 @@
     self.userProfileImage.layer.borderWidth = 1.0f;
     self.userProfileImage.layer.borderColor = [UIColor blackColor].CGColor;
     //self.userProfileImage.frame = CGRectMake(self.userProfileImage.frame.origin.x, self.userProfileImage.frame.origin.y, 40,40);
-    self.userProfileImage.center = self.userProfileImage.superview.center;
+    //self.userProfileImage.center = self.userProfileImage.superview.center;
     
 }
 
