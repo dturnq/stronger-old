@@ -20,8 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"Loading the entry view");
-    
     
     self.firebaseRef = [[FIRDatabase database] reference];
     
@@ -34,34 +32,27 @@
     
 -(void)viewDidAppear:(BOOL)animated {
     
-    NSLog(@"view did appear");
-    
     NSString *userID = [FIRAuth auth].currentUser.uid;
-    //userID = @"OFFLINE MODE";
-    
-    NSLog(@"user id: %@", userID);
-    
     
     if (userID != nil) {
-        NSLog(@"Not nil A");
+
         self.firebaseWorkoutsRef = [[self.firebaseRef child:@"workouts"] child:userID];
         FIRDatabaseQuery *query = [[[[self.firebaseRef child:@"workouts"] child:userID] queryOrderedByChild:@"complete"] queryEqualToValue:@"No"];
-        NSLog(@"set query");
+
         
         [query observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             //NSLog(@"snap.value for query: %@", snapshot.value);
             
-            NSLog(@"inside query - running");
             NSDictionary *workouts = snapshot.value;
-            if (workouts == [NSNull null]) {
-                NSLog(@"no existing workouts");
+            if (workouts == (id)[NSNull null]) {
+
                 self.incompleteWorkoutButton.titleLabel.text = @"No incomplete workouts";
             } else {
-                NSLog(@"some workouts - specifically, %lu", (unsigned long)[workouts count]);
+
                 self.incompleteWorkoutButton.titleLabel.text = [NSString stringWithFormat:@"%lu incomplete workouts", (unsigned long)[workouts count]];
             }
         }];
-        NSLog(@"after the query");
+
     } else {
         //self.firebaseWorkoutsRef = @"";
     }
@@ -124,7 +115,7 @@
             //self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:2];
             
         } else if ([unwindSegue.identifier isEqual:@"ReturnFromModal"]) {
-            NSLog(@"Closed modal");
+            // closed modal
             
         } else if ([unwindSegue.identifier isEqualToString:@"CloseExistingSegue"]) {
             
@@ -144,7 +135,7 @@
     
     if ([segue.identifier  isEqual: @"StartNewWorkout"]) {
         
-        NSLog(@"begginning segway");
+
         // Prep values
         FIRUser *user = [FIRAuth auth].currentUser;
         NSString *username = user.displayName;
@@ -154,7 +145,7 @@
         NSString *userImage = [NSString stringWithFormat:@"%@", user.photoURL];
         userImage = @"OFFLINE MODE";
         
-        NSLog(@"timestamp time");
+
         // Timestamp
         NSTimeInterval intervalInSeconds = [[NSDate date] timeIntervalSinceReferenceDate];
         NSNumber *date = [NSNumber numberWithDouble:-intervalInSeconds];
@@ -162,7 +153,7 @@
         
         self.timestamp_start = date;
         
-        NSLog(@"creating dict");
+
         NSDictionary *workoutDict = @{
                                       @"name" : @"Live workout!",
                                       @"name_lowercase" : @"live workout!",
@@ -173,18 +164,18 @@
                                       @"user_profileimage" : userImage,
                                       };
         
-        NSLog(@"creating ref");
+
         FIRDatabaseReference *newWorkoutRef = [self.firebaseWorkoutsRef childByAutoId];
         self.activeWorkoutKey = newWorkoutRef.key;
         
-        NSLog(@"starting ref observation");
+
         [[[self.firebaseRef child:@"followers"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             
-            NSLog(@"about to write to keys");
+
             
             NSMutableDictionary *writeToDict = [[NSMutableDictionary alloc] init];
             
-            NSLog(@"about to check if snapshot is null");
+
             if (snapshot.value != [NSNull null]) {
                 NSArray *writeToKeys = [snapshot.value allKeys];
                 for (NSString *followerKey in writeToKeys) {
@@ -193,16 +184,13 @@
                     [writeToDict setObject:[NSNull null] forKey:keyPath];
                 }
             } else {
-                NSLog(@"no followers");
+                // no followers
             }
             
-            NSLog(@"selfkey");
             NSString *selfKey = [NSString stringWithFormat:@"workouts/%@/%@", userID, self.activeWorkoutKey];
             
-            NSLog(@"setting self key");
             [writeToDict setObject:workoutDict forKey:selfKey];
             
-            NSLog(@"about to save");
             //[self.firebaseRef setValuesForKeysWithDictionary:writeToDict];
             
             

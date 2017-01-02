@@ -17,7 +17,6 @@
 		4925003E1E184C0E0092F3D4 /* ViewFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500391E184C0E0092F3D4 /* ViewFriendsTableViewController.m */; };
 		4925003F1E184C0E0092F3D4 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4925003B1E184C0E0092F3D4 /* SettingsTableViewController.m */; };
 		492500451E185F3C0092F3D4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500441E185F3C0092F3D4 /* Constants.m */; };
-		492500491E19F3180092F3D4 /* FindFacebookFriendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500481E19F3180092F3D4 /* FindFacebookFriendsModel.m */; };
 		49B547D31DEBC8F300CFEE47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B547D21DEBC8F300CFEE47 /* main.m */; };
 		49B547D61DEBC8F300CFEE47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B547D51DEBC8F300CFEE47 /* AppDelegate.m */; };
 		49B547DF1DEBC8F300CFEE47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49B547DD1DEBC8F300CFEE47 /* Main.storyboard */; };
@@ -87,8 +86,6 @@
 		4925003A1E184C0E0092F3D4 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		4925003B1E184C0E0092F3D4 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		492500441E185F3C0092F3D4 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		492500471E19F3180092F3D4 /* FindFacebookFriendsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindFacebookFriendsModel.h; sourceTree = "<group>"; };
-		492500481E19F3180092F3D4 /* FindFacebookFriendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFacebookFriendsModel.m; sourceTree = "<group>"; };
 		49B547CE1DEBC8F300CFEE47 /* Stronger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stronger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49B547D21DEBC8F300CFEE47 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		49B547D41DEBC8F300CFEE47 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -218,8 +215,6 @@
 			children = (
 				492500341E184C0E0092F3D4 /* FindFacebookFriendsTableViewController.h */,
 				492500351E184C0E0092F3D4 /* FindFacebookFriendsTableViewController.m */,
-				492500471E19F3180092F3D4 /* FindFacebookFriendsModel.h */,
-				492500481E19F3180092F3D4 /* FindFacebookFriendsModel.m */,
 			);
 			name = FindFriends;
 			sourceTree = "<group>";
@@ -674,7 +669,6 @@
 				4925003D1E184C0E0092F3D4 /* FriendTableViewCell.m in Sources */,
 				49C760AE1E105BA300A71DA2 /* TabBarViewController.m in Sources */,
 				49C760991DFBEA7B00A71DA2 /* HPCollectionVC.m in Sources */,
-				492500491E19F3180092F3D4 /* FindFacebookFriendsModel.m in Sources */,
 				49C760A51DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m in Sources */,
 				49B547D31DEBC8F300CFEE47 /* main.m in Sources */,
 				492500451E185F3C0092F3D4 /* Constants.m in Sources */,

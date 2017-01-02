@@ -36,16 +36,12 @@
     [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
         if (user) {
             // user authenticated
-            NSLog(@"TabBarViewController.m User is signed in with uid: %@", [FIRAuth auth].currentUser.uid);
-            
-            NSLog(@"TabBarViewController.m User is signed in with uid: %@", [FIRAuth auth].currentUser.uid);
-            NSLog(@"TabBarViewController.m user display name: %@", user.displayName);
 
         } else {
-            NSLog(@"No user is signed in.");
+
             UINavigationController *authViewController = [self.authUI authViewController];
             [self presentViewController:authViewController animated:YES completion:^{
-                NSLog(@"presented bitches");
+                // presented
             }];
             // OLD ALTERNATIVE: [self performSegueWithIdentifier:@"SegueToLogin" sender:self];
         }
@@ -60,8 +56,6 @@
     // Timestamp
      NSTimeInterval intervalInSeconds = [[NSDate date] timeIntervalSinceReferenceDate];
      NSNumber *date = [NSNumber numberWithDouble:-intervalInSeconds];
-     
-     NSLog(@"about to cerate the dictionary from user: %@", user);
     
      NSString *provider_last = @"";
      NSString *facebookUID = @"";
@@ -98,9 +92,7 @@
     // save the fbook id mapping
     if ([facebookUID isEqual: @""]) {
         // No fbook id
-        NSLog(@"no fbook id");
     } else {
-        NSLog(@"should save the fb users...");
         [[[self.firebaseRef child:@"fb_users"] child:facebookUID] setValue:@{@"firebase_uid": uid}];
     }
     
@@ -118,14 +110,10 @@
      @"lastLoginTimeStamp": date
      };
     
-    NSLog(@"User data to save: %@", userDict);
+
     
      // save it
-     NSLog(@"Attempting to save");
      [[[self.firebaseRef child:@"users"] child:user.uid] setValue:userDict];
-     NSLog(@"Saved");
-    
-    NSLog(@"Ran the didsigninuser authui method yeeeeeeHA! authui: %@, user: %@, error: %@", authUI, user, error);
     
 }
 

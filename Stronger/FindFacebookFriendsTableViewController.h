@@ -11,7 +11,6 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKLoginKit/FBSDKLoginManager.h>
-#import "FindFacebookFriendsModel.h"
 @import Firebase;
 @import FirebaseDatabase;
 @import FirebaseAuth;
@@ -19,8 +18,6 @@
 @import FirebaseFacebookAuthUI;
 
 @interface FindFacebookFriendsTableViewController : UITableViewController
-
-@property (strong, nonatomic) FindFacebookFriendsModel *findFacebookFriendsModel;
 
 @property (nonatomic) int numberOfRows;
 @property (weak, nonatomic) NSString *status;
@@ -37,14 +34,18 @@
 
 -(void)pullFacebookFriendsList;
 -(void)pullFollowingList;
+
 @property (strong, nonatomic) FIRDatabaseReference *firebaseFollowingRef;
 @property (strong, nonatomic) FIRDataSnapshot *followingSnapshot;
 //@property (strong, nonatomic) FUITableViewDataSource *dataSource;
 //@property (strong, nonatomic) FIRDatabaseQuery *FIRDatabaseQuery;
 
+@property (strong, nonatomic) NSLock *lock;
 
 -(void)updateFollowerStatus:(UIButton*)button;
 
+-(void)followUser:(NSString *)firebaseUID withName:(NSString *)name withSnapshot:(FIRDataSnapshot *)snapshot;
+-(void)unfollowUser:(NSString *)firebaseUID withName:(NSString *)name withSnapshot:(FIRDataSnapshot *)snapshot;
 
 
 @end

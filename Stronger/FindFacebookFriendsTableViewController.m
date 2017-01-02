@@ -26,6 +26,8 @@
 
     NSLog(@"FindFacebookFriendsTableViewController.h View did load");
     
+    self.lock  = [NSLock new];
+    
     self.numberOfRows = 1;
     self.status = @"searching";
     
@@ -85,7 +87,6 @@
     // Format will be an array of dictionaries, with each dictionary containing a user
     // within the dictionary, there will be an "id" (with a pure number ID) and a "name"
     
-    NSLog(@"about to start fb friends request");
     FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
                                   initWithGraphPath:@"/me/friends"
                                   parameters:@{@"fields": @"id, name"}
@@ -93,7 +94,6 @@
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
                                           id result,
                                           NSError *error) {
-        NSLog(@"finished request");
         NSLog(@"Result: %@", result);
         // Handle the result
         
@@ -106,37 +106,66 @@
             self.numberOfRows = 1;
             self.fbFriendListArray = @[];
         } else {
-            NSLog(@"Result: %@", result);
-            self.status = @"done";
+            
             NSNumber *temp = [NSNumber numberWithLong:[[result objectForKey:@"data"] count]];
             self.numberOfRows = [temp intValue];
             
+            self.fbFriendListArray = @[];
             
-            /*
             NSArray *fbFriendListArray = [result objectForKey:@"data"];
             
-            
+            NSLog(@"About to start on the magic loop");
             
             for (NSDictionary *friendDict in fbFriendListArray) {
+
                 NSString *friendName = [friendDict objectForKey:@"name"];
                 NSString *friendID = [NSString stringWithFormat:@"facebook:%@",[friendDict objectForKey:@"id"]];
                 
                 FIRDatabaseQuery *prequery = [[[self.firebaseRef child:@"fb_users"] queryOrderedByKey] queryEqualToValue:friendID];
                 
-                prequery observesignle
+                NSLog(@"about to begin prequery for loop");
+                [prequery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                    NSLog(@"Block started, about to lock");
+                    [self.lock lock];
+                    
+                    NSLog(@"Locked");
+                    
+                    NSDictionary *snapDict = snapshot.value;
+                    
+                    if (snapDict == [NSNull null]) {
+                        // do nothing
+                    } else {
+                        NSLog(@"snapshot value: %@", snapDict);
+                        NSString *uid = [[snapshot.value objectForKey:friendID] objectForKey:@"firebase_uid"];
+                        NSLog(@"uid: %@", uid);
+                        NSLog(@"creating dictionary");
+                        NSDictionary *newFriendDict = @{
+                                                        @"name" : friendName,
+                                                        @"facebookUID" : friendID,
+                                                        @"uid" : uid,
+                                                        };
+                        
+                        NSLog(@"new array about to be created");
+                        NSArray *newArray = [self.fbFriendListArray arrayByAddingObject:newFriendDict];
+                        
+                        NSLog(@"new array: %@", newArray);
+                        
+                        self.fbFriendListArray = newArray;
+                        self.numberOfRows = [newArray count];
+                        
+                        self.status = @"done";
+                    }
+                    
+                    
+                    NSLog(@"About to unlock");
+                    [self.lock unlock];
+                    [self.tableView reloadData];
+                }];
             }
-            */
-            
-            
-            
-            self.fbFriendListArray = [result objectForKey:@"data"];
-            
-            
-            
             
             
         }
-        [self.tableView reloadData];
+        
         
         
         // I could individually pull each friend, and see whether I get a match
@@ -190,27 +219,28 @@
     NSString *friendName = @"Searching friends...";
     NSString *followerStatus = @"";
     
-    
+    // THE CASE WHERE THERE WAS AN ERROR LOGGING INTO FACEBOOK
     if ([self.status  isEqual: @"error"]) {
         friendName = @"Error logging into Facebook";
         followerStatus = @"";
     }
     
+    // THE CASE WHERE THE USER HAS NO FRIENDS
     if ([self.status  isEqual: @"no friends"]) {
         friendName = @"No friends found :(";
         followerStatus = @"";
     }
     
+    // THE CASE WHERE AT LEAST ONE FRIEND HAS BEEN ADDED
     if ([self.status isEqual: @"done"]) {
 
 
         NSDictionary *friendDict = [self.fbFriendListArray objectAtIndex:indexPath.row];
         friendName = [friendDict objectForKey:@"name"];
-        NSString *friendID = [NSString stringWithFormat:@"facebook:%@",[friendDict objectForKey:@"id"]];
+        NSString *friendIDFirebase = [friendDict objectForKey:@"uid"];
         
         
-        
-        if ([self.followingSnapshot hasChild:friendID]) {
+        if ([self.followingSnapshot hasChild:friendIDFirebase]) {
             NSLog(@"Found - setting follower status to unfollow");
             followerStatus = @"Unfollow";
             NSLog(@"followerstatus: %@", followerStatus);
@@ -235,155 +265,169 @@
     return cell;
 }
 
+// THE ACTION AFTER THE FOLLOW / UNFOLLOW BUTTON IS CLICKED
 -(void)updateFollowerStatus:(UIButton*)button {
     long row = button.tag;
     NSLog(@"row clicked: %ld", row);
-    NSDictionary *friendDict = [self.fbFriendListArray objectAtIndex:row];
-    NSString *friendIDTemp = [friendDict objectForKey:@"id"];
-    NSString *friendID = [NSString stringWithFormat:@"facebook:%@",friendIDTemp];
-    NSString *friendName = [friendDict objectForKey:@"name"];
+    NSDictionary *facebookFriendDict = [self.fbFriendListArray objectAtIndex:row];
+    NSString *friendIDFirebase = [facebookFriendDict objectForKey:@"uid"];
+    NSString *friendName = [facebookFriendDict objectForKey:@"name"];
     NSString *friendNameLower = [friendName lowercaseString];
 
-    NSLog(@"friend id: %@", friendID);
+    NSLog(@"friend id: %@", friendIDFirebase);
     
-    if ([self.followingSnapshot hasChild:friendID]) {
+    // CASE 1: ALREADY A FOLLOWER -> ACTION = REMOVE
+    if ([self.followingSnapshot hasChild:friendIDFirebase]) {
         
         // This REMOVES you as a follower
-        
+    
         NSLog(@"Already following");
-        FIRDatabaseQuery *query = [[[[[self.firebaseRef child:@"workouts"] child:friendID] queryOrderedByChild:@"timestamp_start"] queryEndingAtValue:@-1] queryLimitedToFirst:100];
+        FIRDatabaseQuery *query = [[[[[self.firebaseRef child:@"workouts"] child:friendIDFirebase] queryOrderedByChild:@"timestamp_start"] queryEndingAtValue:@-1] queryLimitedToFirst:100];
         
         [query observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
 
+            [self unfollowUser:friendIDFirebase withName:friendName withSnapshot:snapshot];
             
-            NSMutableDictionary *writeToDict = [[NSMutableDictionary alloc] init];
-            
-            
-            if (snapshot.exists) {
-                NSDictionary *workouts = snapshot.value;
+            [query observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                 
-                NSLog(@"friend workouts: %@", workouts);
-                
-                NSArray *keys = [workouts allKeys];
-                
-                for (NSString *workoutKey in keys) {
-                    NSString *urlKey = [NSString stringWithFormat:@"feed/%@/%@", self.userID, workoutKey];
-                    [writeToDict setObject:[NSNull null] forKey:urlKey];
+                if ([self.followingSnapshot hasChild:friendIDFirebase]) {
                     
-                    NSLog(@"Updated workout key");
-                }
-            } else {
-                NSLog(@"there's no snapshot sucka");
-            }
-
-            
-            NSString *urlKey = [NSString stringWithFormat:@"followers/%@/%@", friendID, self.userID];
-            [writeToDict setObject:[NSNull null] forKey:urlKey];
-
-            
-            NSString *urlKey2 = [NSString stringWithFormat:@"following/%@/%@", self.userID, friendID];
-            [writeToDict setObject:[NSNull null] forKey:urlKey2];
-            
-            NSLog(@"the writeto dict: %@", writeToDict);
-            
-            [self.firebaseRef updateChildValues:writeToDict withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-                if (error) {
-                    NSLog(@"the following update didn't post properly... shit: %@", error.debugDescription);
                 } else {
-                    NSLog(@"psoted");
-                }
+                    
+                    [self unfollowUser:friendIDFirebase withName:friendName withSnapshot:snapshot];
+                };
+                
             }];
             
         }];
         
         
-        
+    // CASE 2: NOT YET A FOLLOWER -> ACTION = FOLLOW
     } else {
 
         // This ADDS you ass a follower
         NSLog(@"This seems to be a new friend - friend ID not found");
         
-        NSLog(@"friend is =>%@",friendID);
-        
-        //[[[self.firebaseRef child:@"fb_users"] child:friendID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        FIRDatabaseQuery *prequery = [[[self.firebaseRef child:@"fb_users"] queryOrderedByKey] queryEqualToValue:friendID];
-        
-        [prequery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-            
-            NSLog(@"snap: %@", snapshot);
-            
-            NSDictionary *idDict = snapshot.value;
-            NSString *friendIDFirebase = @"";
-            
-            
-            if (idDict == (id)[NSNull null]) {
-                // too bad
-                NSLog(@"EXTREME ERROR: WAS NOT ABLE TO PULL ID");
-            } else {
-                NSLog(@"VICTORY - DICT: %@", idDict);
-                friendIDFirebase = [[idDict valueForKey:friendID] valueForKey:@"firebase_uid"];
+        NSLog(@"friend is =>%@",friendIDFirebase);
                 
-                FIRDatabaseQuery *query = [[[[[self.firebaseRef child:@"workouts"] child:friendIDFirebase] queryOrderedByChild:@"timestamp_start"] queryEndingAtValue:@-1] queryLimitedToFirst:100];
+        FIRDatabaseQuery *query = [[[[[self.firebaseRef child:@"workouts"] child:friendIDFirebase] queryOrderedByChild:@"timestamp_start"] queryEndingAtValue:@-1] queryLimitedToFirst:100];
+        
+        [query observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            
+            [self followUser:friendIDFirebase withName:friendName withSnapshot:snapshot];
+            
+            
+            [query observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                 
-                [query observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                    
-                    NSMutableDictionary *writeToDict = [[NSMutableDictionary alloc] init];
-                    
-                    
-                    if (snapshot.exists) {
-                        NSDictionary *workouts = snapshot.value;
-                        
-                        NSLog(@"friend workouts: %@", workouts);
-                        
-                        NSArray *keys = [workouts allKeys];
-                        
-                        for (NSString *workoutKey in keys) {
-                            NSDictionary *workoutDict = [workouts objectForKey:workoutKey];
-                            
-                            NSString *urlKey = [NSString stringWithFormat:@"feed/%@/%@", self.userID, workoutKey];
-                            [writeToDict setObject:workoutDict forKey:urlKey];
-                            
-                            NSLog(@"Updated workout key");
-                        }
-                    } else {
-                        NSLog(@"there's no snapshot sucka");
-                    }
-                    
-                    NSLog(@"done with loop");
-                    
-                    NSLog(@"username: %@", self.userName);
-                    NSLog(@"username lower: %@", self.userNameLower);
-                    
-                    NSDictionary *followerDict = @{@"name": self.userName, @"name_lowercase":self.userNameLower};
-                    
-                    NSLog(@"setting the followerdict: %@", followerDict);
-                    NSString *urlKey = [NSString stringWithFormat:@"followers/%@/%@", friendIDFirebase, self.userID];
-                    [writeToDict setObject:followerDict forKey:urlKey];
-                    
-                    
-                    NSDictionary *followingDict = @{@"name": friendName, @"name_lowercase":friendNameLower};
-                    
-                    NSLog(@"setting the following dict: %@", followingDict);
-                    
-                    NSString *urlKey2 = [NSString stringWithFormat:@"following/%@/%@", self.userID, friendIDFirebase];
-                    [writeToDict setObject:followingDict forKey:urlKey2];
-                    
-                    
-                    [self.firebaseRef updateChildValues:writeToDict withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-                        if (error) {
-                            NSLog(@"the following update didn't post properly... shit: %@", error.debugDescription);
-                        } else {
-                            NSLog(@"psoted");
-                        }
-                    }];
-                    
-                }];
                 
-            }
+                if ([self.followingSnapshot hasChild:friendIDFirebase]) {
+                    [self followUser:friendIDFirebase withName:friendName withSnapshot:snapshot];
+                };
+                
+                
+                
+            }];
+            
+            
         }];
         
     }
+    
+}
+
+-(void)unfollowUser:(NSString *)firebaseUID withName:(NSString *)name withSnapshot:(FIRDataSnapshot *)snapshot {
+    
+    NSMutableDictionary *writeToDict = [[NSMutableDictionary alloc] init];
+    
+    
+    if (snapshot.exists) {
+        NSDictionary *workouts = snapshot.value;
+        
+        NSLog(@"friend workouts: %@", workouts);
+        
+        NSArray *keys = [workouts allKeys];
+        
+        for (NSString *workoutKey in keys) {
+            NSString *urlKey = [NSString stringWithFormat:@"feed/%@/%@", self.userID, workoutKey];
+            [writeToDict setObject:[NSNull null] forKey:urlKey];
+            
+            NSLog(@"Updated workout key");
+        }
+    } else {
+        NSLog(@"there's no snapshot sucka");
+    }
+    
+    
+    NSString *urlKey = [NSString stringWithFormat:@"followers/%@/%@", firebaseUID, self.userID];
+    [writeToDict setObject:[NSNull null] forKey:urlKey];
+    
+    
+    NSString *urlKey2 = [NSString stringWithFormat:@"following/%@/%@", self.userID, firebaseUID];
+    [writeToDict setObject:[NSNull null] forKey:urlKey2];
+    
+    NSLog(@"the writeto dict: %@", writeToDict);
+    
+    [self.firebaseRef updateChildValues:writeToDict withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        if (error) {
+            NSLog(@"the following update didn't post properly... shit: %@", error.debugDescription);
+        } else {
+            NSLog(@"psoted");
+        }
+    }];
+    
+}
+
+-(void)followUser:(NSString *)firebaseUID withName:(NSString *)name withSnapshot:(FIRDataSnapshot *)snapshot {
+    
+    NSMutableDictionary *writeToDict = [[NSMutableDictionary alloc] init];
+    
+    
+    if (snapshot.exists) {
+        NSDictionary *workouts = snapshot.value;
+        
+        NSLog(@"friend workouts: %@", workouts);
+        
+        NSArray *keys = [workouts allKeys];
+        
+        for (NSString *workoutKey in keys) {
+            NSDictionary *workoutDict = [workouts objectForKey:workoutKey];
+            
+            NSString *urlKey = [NSString stringWithFormat:@"feed/%@/%@", self.userID, workoutKey];
+            [writeToDict setObject:workoutDict forKey:urlKey];
+            
+            NSLog(@"Updated workout key");
+        }
+    } else {
+        NSLog(@"there's no snapshot sucka");
+    }
+    
+    NSLog(@"done with loop");
+    
+    NSLog(@"username: %@", self.userName);
+    
+    NSDictionary *followerDict = @{@"name": self.userName, @"name_lowercase":self.userNameLower};
+    
+    NSLog(@"setting the followerdict: %@", followerDict);
+    NSString *urlKey = [NSString stringWithFormat:@"followers/%@/%@", firebaseUID, self.userID];
+    [writeToDict setObject:followerDict forKey:urlKey];
+    
+    
+    NSDictionary *followingDict = @{@"name": name, @"name_lowercase":name.lowercaseString};
+    
+    NSLog(@"setting the following dict: %@", followingDict);
+    
+    NSString *urlKey2 = [NSString stringWithFormat:@"following/%@/%@", self.userID, firebaseUID];
+    
+    [writeToDict setObject:followingDict forKey:urlKey2];
+    
+    
+    [self.firebaseRef updateChildValues:writeToDict withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        if (error) {
+            NSLog(@"the following update didn't post properly... shit: %@", error.debugDescription);
+        } else {
+            NSLog(@"psoted");
+        }
+    }];
     
 }
 
