@@ -17,9 +17,14 @@
     @property (strong, nonatomic) FIRDatabaseReference *firebaseRef;
     @property (strong, nonatomic) FIRDatabaseReference *firebaseExercisesRef;
     @property (strong, nonatomic) FUITableViewDataSource *dataSource;
+    @property (strong, nonatomic) FUITableViewDataSource *dataSourceSearch;
     @property (strong, nonatomic) FIRDatabaseQuery *FIRDatabaseQuery;
     
     
     @property (strong, nonatomic) FIRDataSnapshot *selectedExerciseSnap;
-    
+
+    @property (nonatomic, strong) UISearchController *searchController;
+
+-(void)searchForText:(NSString *)searchString;
+
 @end

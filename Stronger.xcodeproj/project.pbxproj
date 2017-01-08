@@ -18,6 +18,10 @@
 		4925003F1E184C0E0092F3D4 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4925003B1E184C0E0092F3D4 /* SettingsTableViewController.m */; };
 		492500451E185F3C0092F3D4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500441E185F3C0092F3D4 /* Constants.m */; };
 		4925004C1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4925004B1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.m */; };
+		492500521E2189E30092F3D4 /* ExercisesAdminTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500511E2189E30092F3D4 /* ExercisesAdminTableViewController.m */; };
+		492500561E218A280092F3D4 /* EditExerciseAdminViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500551E218A280092F3D4 /* EditExerciseAdminViewController.m */; };
+		492500591E218A400092F3D4 /* ExerciseAdmin.m in Sources */ = {isa = PBXBuildFile; fileRef = 492500581E218A400092F3D4 /* ExerciseAdmin.m */; };
+		4925005C1E22CDD70092F3D4 /* ExerciseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4925005B1E22CDD70092F3D4 /* ExerciseTableViewCell.m */; };
 		49B547D31DEBC8F300CFEE47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B547D21DEBC8F300CFEE47 /* main.m */; };
 		49B547D61DEBC8F300CFEE47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B547D51DEBC8F300CFEE47 /* AppDelegate.m */; };
 		49B547DF1DEBC8F300CFEE47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49B547DD1DEBC8F300CFEE47 /* Main.storyboard */; };
@@ -89,6 +93,14 @@
 		492500441E185F3C0092F3D4 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		4925004A1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveExercise2RowTableViewCell.h; sourceTree = "<group>"; };
 		4925004B1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveExercise2RowTableViewCell.m; sourceTree = "<group>"; };
+		492500501E2189E30092F3D4 /* ExercisesAdminTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExercisesAdminTableViewController.h; sourceTree = "<group>"; };
+		492500511E2189E30092F3D4 /* ExercisesAdminTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExercisesAdminTableViewController.m; sourceTree = "<group>"; };
+		492500541E218A280092F3D4 /* EditExerciseAdminViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditExerciseAdminViewController.h; sourceTree = "<group>"; };
+		492500551E218A280092F3D4 /* EditExerciseAdminViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditExerciseAdminViewController.m; sourceTree = "<group>"; };
+		492500571E218A400092F3D4 /* ExerciseAdmin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseAdmin.h; sourceTree = "<group>"; };
+		492500581E218A400092F3D4 /* ExerciseAdmin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseAdmin.m; sourceTree = "<group>"; };
+		4925005A1E22CDD70092F3D4 /* ExerciseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseTableViewCell.h; sourceTree = "<group>"; };
+		4925005B1E22CDD70092F3D4 /* ExerciseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseTableViewCell.m; sourceTree = "<group>"; };
 		49B547CE1DEBC8F300CFEE47 /* Stronger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stronger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49B547D21DEBC8F300CFEE47 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		49B547D41DEBC8F300CFEE47 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -222,6 +234,19 @@
 			name = FindFriends;
 			sourceTree = "<group>";
 		};
+		492500531E2189F80092F3D4 /* ExercisesAdmin */ = {
+			isa = PBXGroup;
+			children = (
+				492500501E2189E30092F3D4 /* ExercisesAdminTableViewController.h */,
+				492500511E2189E30092F3D4 /* ExercisesAdminTableViewController.m */,
+				492500541E218A280092F3D4 /* EditExerciseAdminViewController.h */,
+				492500551E218A280092F3D4 /* EditExerciseAdminViewController.m */,
+				492500571E218A400092F3D4 /* ExerciseAdmin.h */,
+				492500581E218A400092F3D4 /* ExerciseAdmin.m */,
+			);
+			name = ExercisesAdmin;
+			sourceTree = "<group>";
+		};
 		49B547C51DEBC8F300CFEE47 = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +283,7 @@
 				49C760AD1E105BA300A71DA2 /* TabBarViewController.m */,
 				49B547D11DEBC8F300CFEE47 /* Supporting Files */,
 				492500401E184C160092F3D4 /* Settings View */,
+				492500531E2189F80092F3D4 /* ExercisesAdmin */,
 				49C760661DFBCED700A71DA2 /* Exercises Tab */,
 				49C760731DFBE38500A71DA2 /* Workout */,
 				49C760A81DFBFF2500A71DA2 /* Workout History */,
@@ -302,6 +328,8 @@
 				49C760641DFBCECE00A71DA2 /* ExercisesTableViewController.m */,
 				49C760671DFBD47500A71DA2 /* EditExerciseViewController.h */,
 				49C760681DFBD47500A71DA2 /* EditExerciseViewController.m */,
+				4925005A1E22CDD70092F3D4 /* ExerciseTableViewCell.h */,
+				4925005B1E22CDD70092F3D4 /* ExerciseTableViewCell.m */,
 				49C7606A1DFBDF2500A71DA2 /* Exercise.h */,
 				49C7606B1DFBDF2500A71DA2 /* Exercise.m */,
 			);
@@ -658,10 +686,12 @@
 				49C760A71DFBFF1800A71DA2 /* WorkoutSummaryTableViewCell.m in Sources */,
 				4925003E1E184C0E0092F3D4 /* ViewFriendsTableViewController.m in Sources */,
 				4925004C1E1AF6610092F3D4 /* ActiveExercise2RowTableViewCell.m in Sources */,
+				492500521E2189E30092F3D4 /* ExercisesAdminTableViewController.m in Sources */,
 				49C7608B1DFBEA1200A71DA2 /* SaveWorkoutViewController.m in Sources */,
 				4925003F1E184C0E0092F3D4 /* SettingsTableViewController.m in Sources */,
 				49C760761DFBE46700A71DA2 /* EntryScreenViewController.m in Sources */,
 				49C760821DFBE9C900A71DA2 /* ActiveWorkoutTableViewController.m in Sources */,
+				4925005C1E22CDD70092F3D4 /* ExerciseTableViewCell.m in Sources */,
 				49C760881DFBEA0400A71DA2 /* AddSetViewController.m in Sources */,
 				49B547D61DEBC8F300CFEE47 /* AppDelegate.m in Sources */,
 				49C760691DFBD47600A71DA2 /* EditExerciseViewController.m in Sources */,
@@ -672,11 +702,13 @@
 				49C760981DFBEA7B00A71DA2 /* HorizontalPickerView.m in Sources */,
 				49C7609B1DFBEA7B00A71DA2 /* HPCollectionViewFlowLayout.m in Sources */,
 				49C7606C1DFBDF2500A71DA2 /* Exercise.m in Sources */,
+				492500591E218A400092F3D4 /* ExerciseAdmin.m in Sources */,
 				4925003D1E184C0E0092F3D4 /* FriendTableViewCell.m in Sources */,
 				49C760AE1E105BA300A71DA2 /* TabBarViewController.m in Sources */,
 				49C760991DFBEA7B00A71DA2 /* HPCollectionVC.m in Sources */,
 				49C760A51DFBFF1800A71DA2 /* WorkoutHistoryTableViewCell.m in Sources */,
 				49B547D31DEBC8F300CFEE47 /* main.m in Sources */,
+				492500561E218A280092F3D4 /* EditExerciseAdminViewController.m in Sources */,
 				492500451E185F3C0092F3D4 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

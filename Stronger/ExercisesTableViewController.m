@@ -9,10 +9,11 @@
 #import "Constants.h"
 #import "ExercisesTableViewController.h"
 #import "EditExerciseViewController.h"
+#import "ExerciseTableViewCell.h"
 #import "Exercise.h"
 
 
-@interface ExercisesTableViewController ()
+@interface ExercisesTableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
 
 @end
 
@@ -21,13 +22,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    //self.searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"ScopeButtonCountry",@"Country"), NSLocalizedString(@"ScopeButtonCapital",@"Capital")];
+    self.searchController.searchBar.delegate = self;
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
+    [self.searchController.searchBar sizeToFit];
+     
     NSLog(@"opened the exercise list");
     
     self.firebaseRef = [[FIRDatabase database] reference];
-    NSString *userID = [FIRAuth auth].currentUser.uid;
-    //userID = @"OFFLINE MODE";
+    //NSString *userID = [FIRAuth auth].currentUser.uid;
+
     NSLog(@"about to set the path");
-    self.firebaseExercisesRef = [[self.firebaseRef child:@"exercises"] child:userID];
+    //self.firebaseExercisesRef = [[self.firebaseRef child:@"exercises"] child:userID];
+    self.firebaseExercisesRef = [[self.firebaseRef child:@"exercises"] child:@"main/main"];
     NSLog(@"path set");
     self.FIRDatabaseQuery = [self.firebaseExercisesRef queryOrderedByChild:@"name_lowercase"];
 
@@ -35,7 +46,7 @@
     
     self.dataSource = [[FUITableViewDataSource alloc] initWithQuery:self.FIRDatabaseQuery
                                                                view:self.tableView
-                                                       populateCell:^UITableViewCell * _Nonnull(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, FIRDataSnapshot * _Nonnull snap) {
+                                                       populateCell:^ExerciseTableViewCell * _Nonnull(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, FIRDataSnapshot * _Nonnull snap) {
         
         Exercise *exercise = [[Exercise alloc] initWithName:snap.value[@"name"]
                                            andNameLowercase:snap.value[@"name_lowercase"]
@@ -43,9 +54,12 @@
                                                            
         NSLog(@"The exercise: %@", exercise);
                                                            
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExerciseCell"];
+        ExerciseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExerciseCell"];
+        cell.delegate = self;
+        cell.cellIndex = indexPath.row; // Set indexpath if its a grouped table.
+                                                           
         
-        cell.textLabel.text = exercise.name;
+        cell.nameLabel.text = exercise.name;
         
         return cell;
         
@@ -61,14 +75,100 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)didClickOnCellAtIndex:(NSInteger)cellIndex withData:(id)data
+{
+    // Do additional actions as required.
+    NSLog(@"Cell at Index: %d clicked.\n Data received : %@", cellIndex, data);
+    
+    self.selectedExerciseSnap = [self.dataSource objectAtIndex:cellIndex];
+    
+    [self performSegueWithIdentifier:@"EditExerciseSegue" sender:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+-(void)didPresentSearchController:(UISearchController *)searchController {
+    NSLog(@"search controller presented");
+}
+
+-(void)didDismissSearchController:(UISearchController *)searchController {
+    NSLog(@"search controller dismissed");
+    self.tableView.dataSource = self.dataSource;
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"search controller cancel button clicked");
+    self.tableView.dataSource = self.dataSource;
+}
+
+
+// this runs every time you type into the search bar
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSLog(@"ran updateSearchResultsForSearchController");
+    NSString *searchString = searchController.searchBar.text;
+    NSLog(@"search string: %@", searchString);
+
+    NSLog(@"search string updated: %@", searchString);
+    [self searchForText:searchString.lowercaseString];
+    [self.tableView reloadData];
+}
+
+-(void)searchForText:(NSString *)searchString {
+    
+    if ([searchString isEqual: @""]) {
+        self.tableView.dataSource = self.dataSource;
+    } else {
+        
+        NSString *searchLoc = [NSString stringWithFormat:@"exercises/main/search/%@", searchString];
+        
+        FIRDatabaseReference *searchRef = [self.firebaseRef child:searchLoc];
+        
+        FIRDatabaseQuery *searchQuery = [searchRef queryOrderedByChild:@"name_lowercase"];
+        
+        NSLog(@"initialzing the query");
+        
+        self.dataSourceSearch = [[FUITableViewDataSource alloc] initWithQuery:searchQuery
+                                                                         view:self.tableView
+                                                                 populateCell:^UITableViewCell * _Nonnull(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, FIRDataSnapshot * _Nonnull snap) {
+                                                                     
+                                                                     Exercise *exercise = [[Exercise alloc] initWithName:snap.value[@"name"]
+                                                                                                        andNameLowercase:snap.value[@"name_lowercase"]
+                                                                                                                      pr:@"N/A"];
+                                                                     
+                                                                     NSLog(@"The exercise: %@", exercise);
+                                                                     
+                                                                     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExerciseCell"];
+                                                                     
+                                                                     cell.textLabel.text = exercise.name;
+                                                                     
+                                                                     return cell;
+                                                                     
+                                                                 }];
+        
+        [self.tableView setDataSource:self.dataSourceSearch];
+    }
+    
+}
+
+// this runs every time you change the scope. I could use this if I wanted to change from searching titles to searching categories, or something
+/*
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+    NSLog(@"ran searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange");
+    [self updateSearchResultsForSearchController:self.searchController];
+}
+ */
+
+/*
+
+
 #pragma mark - Table view data source
 
-    /*
+/*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
     return 0;
@@ -82,9 +182,11 @@
     
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    /*
     self.selectedExerciseSnap = [self.dataSource objectAtIndex:indexPath.row];
 
     [self performSegueWithIdentifier:@"EditExerciseSegue" sender:self];
+     */
 }
     
 /*

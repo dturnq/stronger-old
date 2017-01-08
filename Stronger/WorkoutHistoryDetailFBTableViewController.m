@@ -206,8 +206,7 @@
         cell.repsLabel.text = [NSString stringWithFormat:@"%@",self.selectedWorkoutDict[@"rep_count"]];
         cell.lbsLabel.text = [NSString stringWithFormat:@"%@",self.selectedWorkoutDict[@"weight_count"]];
         cell.prLabel.text = [NSString stringWithFormat:@"%@",self.selectedWorkoutDict[@"pr_count"]];
-        NSNumber *minutes = [NSNumber numberWithInt:(int)([self.selectedWorkoutDict[@"pr_count"] integerValue] / 60)];
-        cell.minutesLabel.text  = [NSString stringWithFormat:@"%@",minutes];
+        
         
         // Figure out the date
         NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:(-[self.selectedWorkoutDict[@"timestamp_end"] doubleValue])];
@@ -228,7 +227,21 @@
             formattedDateString = @"Yesterday";
         }
         
-        cell.dateLabel.text = formattedDateString;
+        /*
+        else {
+            formattedDateString = [NSString stringWithFormat:@"on %@", formattedDateString];
+        }
+         */
+        
+        NSNumber *minutes = [NSNumber numberWithInt:ceil([self.selectedWorkoutDict[@"duration"] integerValue] / 60)];
+
+        NSLog(@"duration: %ld", [self.selectedWorkoutDict[@"duration"] integerValue]);
+        NSLog(@"duration / 60: %ld", [self.selectedWorkoutDict[@"duration"] integerValue] / 60);
+        NSLog(@"minutes: %@", minutes);
+        
+        //cell.minutesLabel.text  = [NSString stringWithFormat:@"%@",minutes];
+        
+        cell.dateLabel.text = [NSString stringWithFormat:@"%@ for %@ mins",formattedDateString, minutes];
         
         ///// Profile Pic
         // Download the user's facebook profile picture
